@@ -11,22 +11,25 @@ import { useEffect, type ReactNode } from "react";
 
 import appCss from "../styles.css?url";
 import { reportLovableError } from "../lib/lovable-error-reporting";
+import { SiteHeader } from "@/components/site-header";
+import { SiteFooter } from "@/components/site-footer";
+import { CartProvider } from "@/lib/cart-context";
 
 function NotFoundComponent() {
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[60vh] items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-7xl font-bold text-foreground">404</h1>
-        <h2 className="mt-4 text-xl font-semibold text-foreground">Page not found</h2>
-        <p className="mt-2 text-sm text-muted-foreground">
-          The page you're looking for doesn't exist or has been moved.
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-taupe">Not found</p>
+        <h1 className="mt-4 font-serif text-5xl text-ink">This page has moved on.</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Perhaps the piece you're looking for has been reworked, or it never left the studio.
         </p>
-        <div className="mt-6">
+        <div className="mt-8">
           <Link
             to="/"
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="inline-flex items-center justify-center border border-ink px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-ink hover:bg-ink hover:text-background transition-colors"
           >
-            Go home
+            Return home
           </Link>
         </div>
       </div>
@@ -42,27 +45,28 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
   }, [error]);
 
   return (
-    <div className="flex min-h-screen items-center justify-center bg-background px-4">
+    <div className="flex min-h-[60vh] items-center justify-center bg-background px-4">
       <div className="max-w-md text-center">
-        <h1 className="text-xl font-semibold tracking-tight text-foreground">
-          This page didn't load
-        </h1>
-        <p className="mt-2 text-sm text-muted-foreground">
-          Something went wrong on our end. You can try refreshing or head back home.
+        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-taupe">
+          Something went wrong
         </p>
-        <div className="mt-6 flex flex-wrap justify-center gap-2">
+        <h1 className="mt-4 font-serif text-4xl text-ink">This page didn't load</h1>
+        <p className="mt-4 text-sm text-muted-foreground">
+          Something went wrong on our end. Please try again or head back home.
+        </p>
+        <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
             onClick={() => {
               router.invalidate();
               reset();
             }}
-            className="inline-flex items-center justify-center rounded-md bg-primary px-4 py-2 text-sm font-medium text-primary-foreground transition-colors hover:bg-primary/90"
+            className="border border-ink px-6 py-3 text-[11px] uppercase tracking-[0.2em] hover:bg-ink hover:text-background transition-colors"
           >
             Try again
           </button>
           <a
             href="/"
-            className="inline-flex items-center justify-center rounded-md border border-input bg-background px-4 py-2 text-sm font-medium text-foreground transition-colors hover:bg-accent"
+            className="border border-ink/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] hover:bg-ivory transition-colors"
           >
             Go home
           </a>
@@ -77,21 +81,31 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "Lovable App" },
-      { name: "description", content: "Lovable Generated Project" },
-      { name: "author", content: "Lovable" },
-      { property: "og:title", content: "Lovable App" },
-      { property: "og:description", content: "Lovable Generated Project" },
+      { title: "IXIA London — Interior Design & Made-to-Order Furniture" },
+      {
+        name: "description",
+        content:
+          "IXIA London is a Chiswick interior design studio and made-to-order furniture atelier — tailored bedside tables, cabinetry and interiors for modern family life.",
+      },
+      { name: "author", content: "IXIA London" },
+      { property: "og:title", content: "IXIA London — Interior Design & Made-to-Order Furniture" },
+      {
+        property: "og:description",
+        content:
+          "Tailored interiors and quietly luxurious made-to-order furniture from a London design studio.",
+      },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
-      { name: "twitter:site", content: "@Lovable" },
     ],
     links: [
+      { rel: "stylesheet", href: appCss },
+      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
+      { rel: "preconnect", href: "https://fonts.googleapis.com" },
+      { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: appCss,
+        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
       },
-      { rel: "icon", href: "/favicon.ico", type: "image/x-icon" },
     ],
   }),
   shellComponent: RootShell,
@@ -119,8 +133,15 @@ function RootComponent() {
 
   return (
     <QueryClientProvider client={queryClient}>
-      {/* Required: nested routes render here. Removing <Outlet /> breaks all child routes. */}
-      <Outlet />
+      <CartProvider>
+        <div className="flex min-h-screen flex-col">
+          <SiteHeader />
+          <main className="flex-1">
+            <Outlet />
+          </main>
+          <SiteFooter />
+        </div>
+      </CartProvider>
     </QueryClientProvider>
   );
 }
