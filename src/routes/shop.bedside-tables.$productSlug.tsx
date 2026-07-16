@@ -450,7 +450,7 @@ function SwatchButton({
   active: boolean;
   onClick: () => void;
 }) {
-  const isCircular = true;
+  const hasImage = !!opt.swatchImage;
   return (
     <button
       onClick={onClick}
@@ -465,10 +465,23 @@ function SwatchButton({
           : "border-ink/10 hover:border-ink/40"
       }`}
     >
-      <span
-        className={`shrink-0 ${isCircular ? "size-8 rounded-full" : "size-8"} ring-1 ring-ink/10`}
-        style={{ background: opt.colour }}
-      />
+      {hasImage ? (
+        <span className="shrink-0 size-12 overflow-hidden bg-ivory ring-1 ring-ink/10">
+          <img
+            src={opt.swatchImage}
+            alt=""
+            loading="lazy"
+            width={96}
+            height={96}
+            className="size-full object-cover"
+          />
+        </span>
+      ) : (
+        <span
+          className="shrink-0 size-8 rounded-full ring-1 ring-ink/10"
+          style={{ background: opt.colour }}
+        />
+      )}
       <span className="flex-1 min-w-0">
         <span className="block text-[11px] font-semibold uppercase tracking-wider truncate">
           {opt.label}

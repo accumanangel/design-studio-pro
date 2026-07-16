@@ -10,6 +10,20 @@ import roomChildren from "@/assets/room-children.jpg";
 import roomGuest from "@/assets/room-guest.jpg";
 import roomMaster from "@/assets/room-master.jpg";
 import detailWalnut from "@/assets/detail-walnut.jpg";
+import swatchLightOak from "@/assets/swatch-light-oak.jpg";
+import swatchMidOak from "@/assets/swatch-mid-oak.jpg";
+import swatchWalnutWood from "@/assets/swatch-walnut.jpg";
+import swatchKnobWhite from "@/assets/swatch-knob-white.jpg";
+import swatchKnobGold from "@/assets/swatch-knob-gold.jpg";
+import swatchKnobPink from "@/assets/swatch-knob-pink.jpg";
+import swatchKnobBlack from "@/assets/swatch-knob-black.jpg";
+import swatchDetailFlower from "@/assets/swatch-detail-flower.jpg";
+import swatchDetailHeart from "@/assets/swatch-detail-heart.jpg";
+import swatchDetailNone from "@/assets/swatch-detail-none.jpg";
+import swatchHandleBronze from "@/assets/swatch-handle-bronze.jpg";
+import swatchHandleGold from "@/assets/swatch-handle-gold.jpg";
+import swatchHandleChrome from "@/assets/swatch-handle-chrome.jpg";
+import swatchHandleBlack from "@/assets/swatch-handle-black.jpg";
 import detailStone from "@/assets/detail-stone.jpg";
 
 export type CollectionSlug = "childrens" | "guest-room" | "master-suite";
@@ -24,6 +38,7 @@ export interface Swatch {
   disabled?: boolean;
   disabledReason?: string;
   image?: string; // maps to product hero for crossfade
+  swatchImage?: string; // small illustrative thumbnail shown in the swatch chip
   description?: string;
 }
 
@@ -63,16 +78,16 @@ const gbp = (pounds: number) => Math.round(pounds * 100);
 
 // --- Shared option pools ---
 const woodTonesGeneric: Swatch[] = [
-  { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest },
-  { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut },
-  { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut },
+  { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest, swatchImage: swatchLightOak },
+  { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut, swatchImage: swatchMidOak },
+  { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut, swatchImage: swatchWalnutWood },
 ];
 
 const handleFinishes: Swatch[] = [
-  { id: "bronze", label: "Bronze", colour: "#7a5230" },
-  { id: "gold", label: "Gold", colour: "#c9a24a", priceDelta: gbp(35) },
-  { id: "chrome", label: "Chrome", colour: "#c2c6c8" },
-  { id: "black", label: "Black", colour: "#1c1a17" },
+  { id: "bronze", label: "Bronze", colour: "#7a5230", swatchImage: swatchHandleBronze },
+  { id: "gold", label: "Gold", colour: "#c9a24a", priceDelta: gbp(35), swatchImage: swatchHandleGold },
+  { id: "chrome", label: "Chrome", colour: "#c2c6c8", swatchImage: swatchHandleChrome },
+  { id: "black", label: "Black", colour: "#1c1a17", swatchImage: swatchHandleBlack },
 ];
 
 const topOptions: Swatch[] = [
@@ -145,9 +160,9 @@ const childrensProduct: Product = {
       label: "Decorative detail",
       kind: "detail",
       options: [
-        { id: "flower", label: "Flower detail", colour: "#e4d5c2", priceDelta: gbp(45) },
-        { id: "heart", label: "Heart detail", colour: "#e4d5c2", priceDelta: gbp(45) },
-        { id: "none", label: "No detail", colour: "#efe9de" },
+        { id: "flower", label: "Flower detail", colour: "#e4d5c2", priceDelta: gbp(45), swatchImage: swatchDetailFlower },
+        { id: "heart", label: "Heart detail", colour: "#e4d5c2", priceDelta: gbp(45), swatchImage: swatchDetailHeart },
+        { id: "none", label: "No detail", colour: "#efe9de", swatchImage: swatchDetailNone },
       ],
     },
     {
@@ -155,10 +170,10 @@ const childrensProduct: Product = {
       label: "Knob",
       kind: "metal",
       options: [
-        { id: "small-white", label: "Small white knob", colour: "#f2ede4" },
-        { id: "small-gold", label: "Small gold knob", colour: "#c9a24a", priceDelta: gbp(25) },
-        { id: "pink", label: "Pink knob", colour: "#dda9a3" },
-        { id: "black", label: "Black knob", colour: "#1c1a17" },
+        { id: "small-white", label: "Small white knob", colour: "#f2ede4", swatchImage: swatchKnobWhite },
+        { id: "small-gold", label: "Small gold knob", colour: "#c9a24a", priceDelta: gbp(25), swatchImage: swatchKnobGold },
+        { id: "pink", label: "Pink knob", colour: "#dda9a3", swatchImage: swatchKnobPink },
+        { id: "black", label: "Black knob", colour: "#1c1a17", swatchImage: swatchKnobBlack },
       ],
     },
   ],
@@ -254,9 +269,9 @@ const masterProduct: Product = {
       kind: "wood",
       requires: { step: "finish", value: "wooden" },
       options: [
-        { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest },
-        { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut },
-        { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut },
+        { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest, swatchImage: swatchLightOak },
+        { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut, swatchImage: swatchMidOak },
+        { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut, swatchImage: swatchWalnutWood },
       ],
     },
     {
