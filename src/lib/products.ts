@@ -160,9 +160,9 @@ const childrensProduct: Product = {
       label: "Decorative detail",
       kind: "detail",
       options: [
-        { id: "flower", label: "Flower detail", colour: "#e4d5c2", priceDelta: gbp(45) },
-        { id: "heart", label: "Heart detail", colour: "#e4d5c2", priceDelta: gbp(45) },
-        { id: "none", label: "No detail", colour: "#efe9de" },
+        { id: "flower", label: "Flower detail", colour: "#e4d5c2", priceDelta: gbp(45), swatchImage: swatchDetailFlower },
+        { id: "heart", label: "Heart detail", colour: "#e4d5c2", priceDelta: gbp(45), swatchImage: swatchDetailHeart },
+        { id: "none", label: "No detail", colour: "#efe9de", swatchImage: swatchDetailNone },
       ],
     },
     {
@@ -170,10 +170,10 @@ const childrensProduct: Product = {
       label: "Knob",
       kind: "metal",
       options: [
-        { id: "small-white", label: "Small white knob", colour: "#f2ede4" },
-        { id: "small-gold", label: "Small gold knob", colour: "#c9a24a", priceDelta: gbp(25) },
-        { id: "pink", label: "Pink knob", colour: "#dda9a3" },
-        { id: "black", label: "Black knob", colour: "#1c1a17" },
+        { id: "small-white", label: "Small white knob", colour: "#f2ede4", swatchImage: swatchKnobWhite },
+        { id: "small-gold", label: "Small gold knob", colour: "#c9a24a", priceDelta: gbp(25), swatchImage: swatchKnobGold },
+        { id: "pink", label: "Pink knob", colour: "#dda9a3", swatchImage: swatchKnobPink },
+        { id: "black", label: "Black knob", colour: "#1c1a17", swatchImage: swatchKnobBlack },
       ],
     },
   ],
