@@ -269,9 +269,9 @@ const masterProduct: Product = {
       kind: "wood",
       requires: { step: "finish", value: "wooden" },
       options: [
-        { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest },
-        { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut },
-        { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut },
+        { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest, swatchImage: swatchLightOak },
+        { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut, swatchImage: swatchMidOak },
+        { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut, swatchImage: swatchWalnutWood },
       ],
     },
     {
