@@ -78,16 +78,16 @@ const gbp = (pounds: number) => Math.round(pounds * 100);
 
 // --- Shared option pools ---
 const woodTonesGeneric: Swatch[] = [
-  { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest },
-  { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut },
-  { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut },
+  { id: "light-oak", label: "Light Oak", colour: "#c9a678", image: productGuest, swatchImage: swatchLightOak },
+  { id: "mid-oak", label: "Mid Oak", colour: "#a37a4a", image: productMasterWalnut, swatchImage: swatchMidOak },
+  { id: "walnut", label: "Walnut", colour: "#4a2f22", image: productMasterWalnut, swatchImage: swatchWalnutWood },
 ];
 
 const handleFinishes: Swatch[] = [
-  { id: "bronze", label: "Bronze", colour: "#7a5230" },
-  { id: "gold", label: "Gold", colour: "#c9a24a", priceDelta: gbp(35) },
-  { id: "chrome", label: "Chrome", colour: "#c2c6c8" },
-  { id: "black", label: "Black", colour: "#1c1a17" },
+  { id: "bronze", label: "Bronze", colour: "#7a5230", swatchImage: swatchHandleBronze },
+  { id: "gold", label: "Gold", colour: "#c9a24a", priceDelta: gbp(35), swatchImage: swatchHandleGold },
+  { id: "chrome", label: "Chrome", colour: "#c2c6c8", swatchImage: swatchHandleChrome },
+  { id: "black", label: "Black", colour: "#1c1a17", swatchImage: swatchHandleBlack },
 ];
 
 const topOptions: Swatch[] = [
