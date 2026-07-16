@@ -38,6 +38,7 @@ export interface Swatch {
   disabled?: boolean;
   disabledReason?: string;
   image?: string; // maps to product hero for crossfade
+  swatchImage?: string; // small illustrative thumbnail shown in the swatch chip
   description?: string;
 }
 
