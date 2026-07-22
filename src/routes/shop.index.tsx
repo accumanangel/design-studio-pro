@@ -70,7 +70,7 @@ function ShopLanding() {
                 <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">{p.collectionLabel}</p>
                 <div className="flex items-baseline justify-between">
                   <h3 className="font-serif text-xl">{p.name}</h3>
-                  <span className="text-sm">from {formatPrice(p.basePrice)}</span>
+                  <span className="text-[10px] uppercase tracking-[0.2em] text-taupe">Made to order</span>
                 </div>
               </Link>
             ))}
