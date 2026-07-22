@@ -1,5 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { collections, productsByCollection, formatPrice, type CollectionSlug, type Product } from "@/lib/products";
+import { Link, notFound } from "@tanstack/react-router";
+import { collections, productsByCollection, type CollectionSlug, type Product } from "@/lib/products";
 
 export function CollectionPage({ slug }: { slug: CollectionSlug }) {
   const collection = collections.find((c) => c.slug === slug);
