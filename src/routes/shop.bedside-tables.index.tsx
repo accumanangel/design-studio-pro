@@ -22,12 +22,12 @@ export const Route = createFileRoute("/shop/bedside-tables/")({
 
 function CategoryPage() {
   const [filter, setFilter] = useState<Filter>("all");
-  const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc">("featured");
+  const [sort, setSort] = useState<"featured" | "name-asc" | "name-desc">("featured");
 
   const list = useMemo(() => {
     let base = filter === "all" ? products : products.filter((p) => p.collection === filter);
-    if (sort === "price-asc") base = [...base].sort((a, b) => a.basePrice - b.basePrice);
-    if (sort === "price-desc") base = [...base].sort((a, b) => b.basePrice - a.basePrice);
+    if (sort === "name-asc") base = [...base].sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === "name-desc") base = [...base].sort((a, b) => b.name.localeCompare(a.name));
     return base;
   }, [filter, sort]);
 
