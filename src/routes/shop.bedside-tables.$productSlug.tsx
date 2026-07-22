@@ -218,11 +218,6 @@ function ProductPage() {
                           {active && <Check className="size-3.5 text-olive" />}
                         </div>
                         <p className="mt-2 font-mono text-[10px] text-charcoal/60">{s.dims}</p>
-                        {s.priceDelta ? (
-                          <p className="mt-1 text-[10px] text-taupe">+{formatPrice(s.priceDelta)}</p>
-                        ) : (
-                          <p className="mt-1 text-[10px] text-taupe">Included</p>
-                        )}
                       </button>
                     );
                   })}
