@@ -256,49 +256,23 @@ function ProductPage() {
 
               {/* Action block */}
               <div className="mt-10 pt-8 border-t border-ink/10">
-                <div className="flex justify-between items-end mb-6">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-taupe mb-1">
-                      Total
-                    </p>
-                    <p className="font-serif text-3xl text-ink">{formatPrice(price)}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-sage mb-1">
-                      Lead time
-                    </p>
-                    <p className="text-xs text-charcoal/70">{product.leadTime}</p>
-                  </div>
+                <div className="mb-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-sage mb-1">
+                    Lead time
+                  </p>
+                  <p className="text-xs text-charcoal/70">{product.leadTime}</p>
                 </div>
 
-                <div className="space-y-3">
-                  <button
-                    onClick={handleAdd}
-                    disabled={!isComplete}
-                    className="w-full bg-olive text-background py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-charcoal transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {added
-                      ? "Added to basket ✓"
-                      : isComplete
-                      ? `Add to basket — ${formatPrice(price)}`
-                      : `Complete configuration to add`}
-                  </button>
-                  <Link
-                    to="/request-a-quote"
-                    className="block text-center border border-ink/20 py-4 text-[11px] uppercase tracking-[0.25em] hover:border-ink transition-colors"
-                  >
-                    Request a bespoke quote
-                  </Link>
-                </div>
-
-                {added && (
-                  <button
-                    onClick={() => navigate({ to: "/cart" })}
-                    className="mt-4 w-full text-[11px] uppercase tracking-[0.2em] text-olive hover:text-charcoal"
-                  >
-                    Review basket →
-                  </button>
-                )}
+                <button
+                  onClick={handleQuote}
+                  disabled={!isComplete}
+                  className="w-full bg-olive text-background py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-charcoal transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {isComplete ? "Request a bespoke quote" : "Complete configuration to request a quote"}
+                </button>
+                <p className="mt-3 text-[11px] text-taupe text-center">
+                  Each piece is made to order. We reply with pricing within two working days.
+                </p>
               </div>
 
               {/* Expandables */}
