@@ -120,8 +120,8 @@ function CategoryPage() {
                   </p>
                   <div className="mt-1 flex items-baseline justify-between gap-4">
                     <h3 className="font-serif text-xl">{p.name}</h3>
-                    <span className="text-sm whitespace-nowrap">
-                      from {formatPrice(p.basePrice)}
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-taupe whitespace-nowrap">
+                      Made to order
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-charcoal/60">{p.strapline}</p>
