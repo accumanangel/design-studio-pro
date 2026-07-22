@@ -2,11 +2,20 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useMemo, useState } from "react";
 import { Check, Plus, Minus } from "lucide-react";
 import { getProduct, formatPrice, type ConfigStep, type Swatch } from "@/lib/products";
-import { useCart, type CartSelection } from "@/lib/cart-context";
 import complementaryLamp from "@/assets/complementary-lamp.jpg";
 import complementaryThrow from "@/assets/complementary-throw.jpg";
 import complementaryBed from "@/assets/complementary-bed.jpg";
 import craftHands from "@/assets/craft-hands.jpg";
+
+export interface QuoteDraft {
+  productSlug: string;
+  productName: string;
+  collectionLabel: string;
+  sizeLabel: string;
+  selections: { stepLabel: string; optionLabel: string }[];
+  leadTime: string;
+}
+export const QUOTE_DRAFT_KEY = "ixia-quote-draft-v1";
 
 export const Route = createFileRoute("/shop/bedside-tables/$productSlug")({
   loader: ({ params }) => {
