@@ -77,8 +77,8 @@ function CategoryPage() {
               className="bg-transparent border-b border-ink/20 py-1 tracking-normal text-sm normal-case focus:outline-none"
             >
               <option value="featured">Featured</option>
-              <option value="price-asc">Price · low to high</option>
-              <option value="price-desc">Price · high to low</option>
+              <option value="name-asc">Name · A to Z</option>
+              <option value="name-desc">Name · Z to A</option>
             </select>
           </label>
         </div>
