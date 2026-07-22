@@ -1,5 +1,5 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { collections, productsByCollection, formatPrice, type CollectionSlug, type Product } from "@/lib/products";
+import { Link, notFound } from "@tanstack/react-router";
+import { collections, productsByCollection, type CollectionSlug, type Product } from "@/lib/products";
 
 export function CollectionPage({ slug }: { slug: CollectionSlug }) {
   const collection = collections.find((c) => c.slug === slug);
@@ -41,7 +41,7 @@ export function CollectionPage({ slug }: { slug: CollectionSlug }) {
               <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">{p.collectionLabel}</p>
               <div className="mt-1 flex items-baseline justify-between">
                 <h3 className="font-serif text-xl">{p.name}</h3>
-                <span className="text-sm">from {formatPrice(p.basePrice)}</span>
+                <span className="text-[10px] uppercase tracking-[0.2em] text-taupe">Made to order</span>
               </div>
               <p className="mt-2 text-xs text-charcoal/60">{p.strapline}</p>
             </Link>

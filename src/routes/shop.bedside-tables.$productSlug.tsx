@@ -2,11 +2,20 @@ import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-ro
 import { useMemo, useState } from "react";
 import { Check, Plus, Minus } from "lucide-react";
 import { getProduct, formatPrice, type ConfigStep, type Swatch } from "@/lib/products";
-import { useCart, type CartSelection } from "@/lib/cart-context";
 import complementaryLamp from "@/assets/complementary-lamp.jpg";
 import complementaryThrow from "@/assets/complementary-throw.jpg";
 import complementaryBed from "@/assets/complementary-bed.jpg";
 import craftHands from "@/assets/craft-hands.jpg";
+
+export interface QuoteDraft {
+  productSlug: string;
+  productName: string;
+  collectionLabel: string;
+  sizeLabel: string;
+  selections: { stepLabel: string; optionLabel: string }[];
+  leadTime: string;
+}
+export const QUOTE_DRAFT_KEY = "ixia-quote-draft-v1";
 
 export const Route = createFileRoute("/shop/bedside-tables/$productSlug")({
   loader: ({ params }) => {
@@ -52,12 +61,10 @@ export const Route = createFileRoute("/shop/bedside-tables/$productSlug")({
 function ProductPage() {
   const { product } = Route.useLoaderData() as { product: import("@/lib/products").Product };
   const navigate = useNavigate();
-  const { addItem } = useCart();
 
   const [sizeId, setSizeId] = useState<string>(product.sizes[0].id);
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [activeThumb, setActiveThumb] = useState(0);
-  const [added, setAdded] = useState(false);
 
   // Steps visible given current selections (conditional reveal)
   const visibleSteps: ConfigStep[] = useMemo(() => {
@@ -71,7 +78,6 @@ function ProductPage() {
   const setSelection = (stepKey: string, value: string) => {
     setSelections((prev) => {
       const next = { ...prev, [stepKey]: value };
-      // Remove selections for steps that are no longer visible
       const stillVisible = product.steps.filter((s) => {
         if (!s.requires) return true;
         if (s.requires.step === stepKey) return value === s.requires.value;
@@ -87,25 +93,21 @@ function ProductPage() {
 
   const size = product.sizes.find((s) => s.id === sizeId)!;
 
-  // Find the current active step (first visible step without a selection)
   const currentStepIndex = visibleSteps.findIndex((s) => !selections[s.key]);
 
-  // Compute price and preview image
-  const { price, previewImage, resolvedSelections } = useMemo(() => {
-    let total = product.basePrice + (size.priceDelta ?? 0);
+  const { previewImage, resolvedSelections } = useMemo(() => {
     let preview = product.heroImage;
-    const resolved: CartSelection[] = [];
+    const resolved: { stepLabel: string; optionLabel: string }[] = [];
     for (const step of visibleSteps) {
       const val = selections[step.key];
       if (!val) continue;
       const opt = step.options.find((o) => o.id === val);
       if (!opt) continue;
-      total += opt.priceDelta ?? 0;
       if (opt.image) preview = opt.image;
       resolved.push({ stepLabel: step.label, optionLabel: opt.label });
     }
-    return { price: total, previewImage: preview, resolvedSelections: resolved };
-  }, [product, size, visibleSteps, selections]);
+    return { previewImage: preview, resolvedSelections: resolved };
+  }, [product, visibleSteps, selections]);
 
   const gallery = useMemo(() => {
     const first = previewImage;
@@ -115,19 +117,21 @@ function ProductPage() {
 
   const isComplete = visibleSteps.every((s) => selections[s.key]);
 
-  const handleAdd = () => {
-    if (!isComplete) return;
-    addItem({
+  const handleQuote = () => {
+    const draft: QuoteDraft = {
       productSlug: product.slug,
       productName: product.name,
       collectionLabel: product.collectionLabel,
-      image: previewImage,
       sizeLabel: `${size.label} · ${size.dims}`,
       selections: resolvedSelections,
-      unitPrice: price,
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1600);
+      leadTime: product.leadTime,
+    };
+    try {
+      sessionStorage.setItem(QUOTE_DRAFT_KEY, JSON.stringify(draft));
+    } catch {
+      /* ignore */
+    }
+    navigate({ to: "/request-a-quote" });
   };
 
   return (
@@ -214,11 +218,6 @@ function ProductPage() {
                           {active && <Check className="size-3.5 text-olive" />}
                         </div>
                         <p className="mt-2 font-mono text-[10px] text-charcoal/60">{s.dims}</p>
-                        {s.priceDelta ? (
-                          <p className="mt-1 text-[10px] text-taupe">+{formatPrice(s.priceDelta)}</p>
-                        ) : (
-                          <p className="mt-1 text-[10px] text-taupe">Included</p>
-                        )}
                       </button>
                     );
                   })}
@@ -257,49 +256,23 @@ function ProductPage() {
 
               {/* Action block */}
               <div className="mt-10 pt-8 border-t border-ink/10">
-                <div className="flex justify-between items-end mb-6">
-                  <div>
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-taupe mb-1">
-                      Total
-                    </p>
-                    <p className="font-serif text-3xl text-ink">{formatPrice(price)}</p>
-                  </div>
-                  <div className="text-right">
-                    <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-sage mb-1">
-                      Lead time
-                    </p>
-                    <p className="text-xs text-charcoal/70">{product.leadTime}</p>
-                  </div>
+                <div className="mb-6">
+                  <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-sage mb-1">
+                    Lead time
+                  </p>
+                  <p className="text-xs text-charcoal/70">{product.leadTime}</p>
                 </div>
 
-                <div className="space-y-3">
-                  <button
-                    onClick={handleAdd}
-                    disabled={!isComplete}
-                    className="w-full bg-olive text-background py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-charcoal transition-all disabled:opacity-40 disabled:cursor-not-allowed"
-                  >
-                    {added
-                      ? "Added to basket ✓"
-                      : isComplete
-                      ? `Add to basket — ${formatPrice(price)}`
-                      : `Complete configuration to add`}
-                  </button>
-                  <Link
-                    to="/request-a-quote"
-                    className="block text-center border border-ink/20 py-4 text-[11px] uppercase tracking-[0.25em] hover:border-ink transition-colors"
-                  >
-                    Request a bespoke quote
-                  </Link>
-                </div>
-
-                {added && (
-                  <button
-                    onClick={() => navigate({ to: "/cart" })}
-                    className="mt-4 w-full text-[11px] uppercase tracking-[0.2em] text-olive hover:text-charcoal"
-                  >
-                    Review basket →
-                  </button>
-                )}
+                <button
+                  onClick={handleQuote}
+                  disabled={!isComplete}
+                  className="w-full bg-olive text-background py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-charcoal transition-all disabled:opacity-40 disabled:cursor-not-allowed"
+                >
+                  {isComplete ? "Request a bespoke quote" : "Complete configuration to request a quote"}
+                </button>
+                <p className="mt-3 text-[11px] text-taupe text-center">
+                  Each piece is made to order. We reply with pricing within two working days.
+                </p>
               </div>
 
               {/* Expandables */}

@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { collections, products, formatPrice, type CollectionSlug } from "@/lib/products";
+import { collections, products, type CollectionSlug } from "@/lib/products";
 
 type Filter = "all" | CollectionSlug;
 
@@ -22,12 +22,12 @@ export const Route = createFileRoute("/shop/bedside-tables/")({
 
 function CategoryPage() {
   const [filter, setFilter] = useState<Filter>("all");
-  const [sort, setSort] = useState<"featured" | "price-asc" | "price-desc">("featured");
+  const [sort, setSort] = useState<"featured" | "name-asc" | "name-desc">("featured");
 
   const list = useMemo(() => {
     let base = filter === "all" ? products : products.filter((p) => p.collection === filter);
-    if (sort === "price-asc") base = [...base].sort((a, b) => a.basePrice - b.basePrice);
-    if (sort === "price-desc") base = [...base].sort((a, b) => b.basePrice - a.basePrice);
+    if (sort === "name-asc") base = [...base].sort((a, b) => a.name.localeCompare(b.name));
+    if (sort === "name-desc") base = [...base].sort((a, b) => b.name.localeCompare(a.name));
     return base;
   }, [filter, sort]);
 
@@ -77,8 +77,8 @@ function CategoryPage() {
               className="bg-transparent border-b border-ink/20 py-1 tracking-normal text-sm normal-case focus:outline-none"
             >
               <option value="featured">Featured</option>
-              <option value="price-asc">Price · low to high</option>
-              <option value="price-desc">Price · high to low</option>
+              <option value="name-asc">Name · A to Z</option>
+              <option value="name-desc">Name · Z to A</option>
             </select>
           </label>
         </div>
@@ -120,8 +120,8 @@ function CategoryPage() {
                   </p>
                   <div className="mt-1 flex items-baseline justify-between gap-4">
                     <h3 className="font-serif text-xl">{p.name}</h3>
-                    <span className="text-sm whitespace-nowrap">
-                      from {formatPrice(p.basePrice)}
+                    <span className="text-[10px] uppercase tracking-[0.2em] text-taupe whitespace-nowrap">
+                      Made to order
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-charcoal/60">{p.strapline}</p>
