@@ -61,12 +61,10 @@ export const Route = createFileRoute("/shop/bedside-tables/$productSlug")({
 function ProductPage() {
   const { product } = Route.useLoaderData() as { product: import("@/lib/products").Product };
   const navigate = useNavigate();
-  const { addItem } = useCart();
 
   const [sizeId, setSizeId] = useState<string>(product.sizes[0].id);
   const [selections, setSelections] = useState<Record<string, string>>({});
   const [activeThumb, setActiveThumb] = useState(0);
-  const [added, setAdded] = useState(false);
 
   // Steps visible given current selections (conditional reveal)
   const visibleSteps: ConfigStep[] = useMemo(() => {
@@ -80,7 +78,6 @@ function ProductPage() {
   const setSelection = (stepKey: string, value: string) => {
     setSelections((prev) => {
       const next = { ...prev, [stepKey]: value };
-      // Remove selections for steps that are no longer visible
       const stillVisible = product.steps.filter((s) => {
         if (!s.requires) return true;
         if (s.requires.step === stepKey) return value === s.requires.value;
@@ -96,25 +93,21 @@ function ProductPage() {
 
   const size = product.sizes.find((s) => s.id === sizeId)!;
 
-  // Find the current active step (first visible step without a selection)
   const currentStepIndex = visibleSteps.findIndex((s) => !selections[s.key]);
 
-  // Compute price and preview image
-  const { price, previewImage, resolvedSelections } = useMemo(() => {
-    let total = product.basePrice + (size.priceDelta ?? 0);
+  const { previewImage, resolvedSelections } = useMemo(() => {
     let preview = product.heroImage;
-    const resolved: CartSelection[] = [];
+    const resolved: { stepLabel: string; optionLabel: string }[] = [];
     for (const step of visibleSteps) {
       const val = selections[step.key];
       if (!val) continue;
       const opt = step.options.find((o) => o.id === val);
       if (!opt) continue;
-      total += opt.priceDelta ?? 0;
       if (opt.image) preview = opt.image;
       resolved.push({ stepLabel: step.label, optionLabel: opt.label });
     }
-    return { price: total, previewImage: preview, resolvedSelections: resolved };
-  }, [product, size, visibleSteps, selections]);
+    return { previewImage: preview, resolvedSelections: resolved };
+  }, [product, visibleSteps, selections]);
 
   const gallery = useMemo(() => {
     const first = previewImage;
@@ -124,19 +117,21 @@ function ProductPage() {
 
   const isComplete = visibleSteps.every((s) => selections[s.key]);
 
-  const handleAdd = () => {
-    if (!isComplete) return;
-    addItem({
+  const handleQuote = () => {
+    const draft: QuoteDraft = {
       productSlug: product.slug,
       productName: product.name,
       collectionLabel: product.collectionLabel,
-      image: previewImage,
       sizeLabel: `${size.label} · ${size.dims}`,
       selections: resolvedSelections,
-      unitPrice: price,
-    });
-    setAdded(true);
-    setTimeout(() => setAdded(false), 1600);
+      leadTime: product.leadTime,
+    };
+    try {
+      sessionStorage.setItem(QUOTE_DRAFT_KEY, JSON.stringify(draft));
+    } catch {
+      /* ignore */
+    }
+    navigate({ to: "/request-a-quote" });
   };
 
   return (
