@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { collections, products, formatPrice, type CollectionSlug } from "@/lib/products";
+import { collections, products, type CollectionSlug } from "@/lib/products";
 
 type Filter = "all" | CollectionSlug;
 
