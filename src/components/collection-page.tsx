@@ -1,5 +1,5 @@
 import { Link, notFound } from "@tanstack/react-router";
-import { collections, productsByCollection, type CollectionSlug, type Product } from "@/lib/products";
+import { collections, formatPrice, productsByCollection, type CollectionSlug, type Product } from "@/lib/products";
 import { ProductCardImage } from "@/components/product-card-image";
 
 export function CollectionPage({ slug }: { slug: CollectionSlug }) {
@@ -40,7 +40,7 @@ export function CollectionPage({ slug }: { slug: CollectionSlug }) {
               <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">{p.collectionLabel}</p>
               <div className="mt-1 flex items-baseline justify-between">
                 <h3 className="font-serif text-xl">{p.name}</h3>
-                <span className="text-[10px] uppercase tracking-[0.2em] text-taupe">Made to order</span>
+                <span className="text-sm font-semibold text-charcoal">From {formatPrice(p.basePrice)}</span>
               </div>
               <p className="mt-2 text-xs text-charcoal/60">{p.strapline}</p>
             </Link>
@@ -60,8 +60,8 @@ export function CollectionPage({ slug }: { slug: CollectionSlug }) {
               using FSC-certified timbers, workshop-mixed paints, and hardware sourced from
               small British foundries. White-glove delivery is included across mainland UK.
             </p>
-            <Link to="/interior-design" className="mt-8 inline-block border-b border-ink pb-1 text-[11px] uppercase tracking-[0.2em]">
-              Or design the whole room with us →
+            <Link to="/request-a-quote" className="mt-8 inline-block border-b border-brand-accent pb-1 text-[11px] font-semibold uppercase tracking-[0.2em] text-brand-accent">
+              Request a bespoke configuration →
             </Link>
           </div>
           <img src={collection.image} alt="" className="w-full aspect-[4/3] object-cover" loading="lazy" />

@@ -26,10 +26,10 @@ function NotFoundComponent() {
         </p>
         <div className="mt-8">
           <Link
-            to="/"
+            to="/shop"
             className="inline-flex items-center justify-center border border-ink px-6 py-3 text-[11px] uppercase tracking-[0.2em] text-ink hover:bg-ink hover:text-background transition-colors"
           >
-            Return home
+            Return to shop
           </Link>
         </div>
       </div>
@@ -52,7 +52,7 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
         </p>
         <h1 className="mt-4 font-serif text-4xl text-ink">This page didn't load</h1>
         <p className="mt-4 text-sm text-muted-foreground">
-          Something went wrong on our end. Please try again or head back home.
+          Something went wrong on our end. Please try again or return to the shop.
         </p>
         <div className="mt-8 flex flex-wrap justify-center gap-3">
           <button
@@ -65,10 +65,10 @@ function ErrorComponent({ error, reset }: { error: Error; reset: () => void }) {
             Try again
           </button>
           <a
-            href="/"
+            href="/shop"
             className="border border-ink/20 px-6 py-3 text-[11px] uppercase tracking-[0.2em] hover:bg-ivory transition-colors"
           >
-            Go home
+            Go to shop
           </a>
         </div>
       </div>
@@ -81,18 +81,18 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
     meta: [
       { charSet: "utf-8" },
       { name: "viewport", content: "width=device-width, initial-scale=1" },
-      { title: "IXIA London — Interior Design & Made-to-Order Furniture" },
+      { title: "IXIA London — Made-to-Order Furniture" },
       {
         name: "description",
         content:
-          "IXIA London is a Chiswick interior design studio and made-to-order furniture atelier — tailored bedside tables, cabinetry and interiors for modern family life.",
+          "Explore made-to-order bedside tables and furniture from IXIA London.",
       },
       { name: "author", content: "IXIA London" },
-      { property: "og:title", content: "IXIA London — Interior Design & Made-to-Order Furniture" },
+      { property: "og:title", content: "IXIA London — Made-to-Order Furniture" },
       {
         property: "og:description",
         content:
-          "Tailored interiors and quietly luxurious made-to-order furniture from a London design studio.",
+          "Thoughtful, made-to-order furniture from IXIA London.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
@@ -104,7 +104,7 @@ export const Route = createRootRouteWithContext<{ queryClient: QueryClient }>()(
       { rel: "preconnect", href: "https://fonts.gstatic.com", crossOrigin: "anonymous" },
       {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,500&family=Inter:wght@300;400;500;600&family=JetBrains+Mono:wght@400;500&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=Montserrat:wght@400;500;600;700&display=swap",
       },
     ],
   }),

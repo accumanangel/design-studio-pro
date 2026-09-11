@@ -1,64 +1,51 @@
 import { Link } from "@tanstack/react-router";
+import ixiaLogo from "@/assets/ixia-logo-white.png";
 
 export function SiteFooter() {
   return (
-    <footer className="bg-ink text-background/85 mt-24">
-      <div className="mx-auto max-w-[1440px] px-6 lg:px-12 py-20 grid gap-14 md:grid-cols-[1.4fr_1fr_1fr_1.2fr]">
+    <footer className="mt-24 bg-brand-dark text-footer-muted">
+      <div className="mx-auto grid max-w-[1440px] gap-14 px-6 py-16 md:grid-cols-3 lg:px-12 lg:py-20">
         <div>
-          <span className="font-serif text-3xl italic tracking-tight text-background">IXIA</span>
-          <p className="mt-2 text-[10px] uppercase tracking-[0.3em] text-background/45">
-            London Atelier
+          <Link to="/shop" className="inline-flex items-center gap-3 text-white" aria-label="IXIA London shop">
+            <img src={ixiaLogo} alt="IXIA London Interior Design" className="h-16 w-auto" />
+          </Link>
+          <h2 className="mt-7 font-serif text-2xl font-bold text-white">The Collection</h2>
+          <p className="mt-4 max-w-sm text-sm leading-7">
+            Thoughtful, made-to-order furniture from an interior design studio creating inviting
+            and functional spaces for modern family life.
           </p>
-          <p className="mt-8 max-w-xs text-sm leading-relaxed text-background/70">
-            A Chiswick-based interior design studio creating tailored, practical and beautiful
-            homes for modern family life.
+          <Link to="/shop/bedside-tables" className="mt-6 inline-block text-sm font-semibold text-brand-accent hover:text-white">
+            Explore the collection
+          </Link>
+        </div>
+
+        <div className="md:text-center">
+          <h2 className="font-serif text-2xl font-bold text-white">Working Hours</h2>
+          <div className="mt-4 space-y-1 text-sm leading-6">
+            <p>Daily – 09:00–19:00</p>
+            <p>Saturday – available upon request</p>
+            <p>Sunday – available until 12:00 upon request</p>
+          </div>
+          <p className="mt-6 text-sm font-semibold">
+            Questions about a piece?{" "}
+            <Link to="/request-a-quote" className="text-brand-accent hover:text-white">Request a quote</Link>.
           </p>
         </div>
 
-        <div className="space-y-4 text-[11px] uppercase tracking-[0.2em]">
-          <p className="text-background/40">Shop</p>
-          <ul className="space-y-3 text-background/85">
-            <li><Link to="/shop">Furniture</Link></li>
-            <li><Link to="/shop/bedside-tables">Bedside tables</Link></li>
-            <li><Link to="/request-a-quote">Request a quote</Link></li>
-          </ul>
-        </div>
-
-        <div className="space-y-4 text-[11px] uppercase tracking-[0.2em]">
-          <p className="text-background/40">Studio</p>
-          <ul className="space-y-3 text-background/85">
-            <li><Link to="/about">About IXIA</Link></li>
-            <li><Link to="/interior-design">Interior design</Link></li>
-            <li><Link to="/contact">Contact</Link></li>
-          </ul>
-        </div>
-
-        <div className="space-y-4 text-[11px] uppercase tracking-[0.2em]">
-          <p className="text-background/40">Newsletter</p>
-          <p className="text-sm normal-case tracking-normal text-background/70">
-            Quiet dispatches from the studio. No noise.
-          </p>
-          <form className="flex border-b border-background/30 pb-2">
-            <input
-              type="email"
-              placeholder="Your email"
-              className="flex-1 bg-transparent text-sm normal-case tracking-normal placeholder:text-background/40 focus:outline-none"
-            />
-            <button className="text-[11px] tracking-[0.2em] text-background/70 hover:text-background">
-              Sign up
-            </button>
-          </form>
+        <div className="md:text-right">
+          <h2 className="font-serif text-2xl font-bold text-white">Find Us</h2>
+          <div className="mt-4 space-y-5 text-sm leading-6">
+            <p><strong className="block text-white/75">Address</strong>Unit 115, Barley Mow Centre<br />London, W4 4PH</p>
+            <p><strong className="block text-white/75">Phone</strong><a href="tel:07932781807" className="text-brand-accent hover:text-white">07932781807</a></p>
+            <p><strong className="block text-white/75">Email</strong><a href="mailto:kirsty@ixialondon.com" className="text-brand-accent hover:text-white">kirsty@ixialondon.com</a></p>
+          </div>
         </div>
       </div>
-      <div className="border-t border-background/10">
-        <div className="mx-auto max-w-[1440px] px-6 lg:px-12 py-6 flex flex-wrap items-center justify-between gap-4 text-[10px] uppercase tracking-[0.25em] text-background/40">
-          <span>© IXIA London Ltd — MMXXVI</span>
-          <div className="flex gap-6">
-            <a href="#">Delivery</a>
-            <a href="#">Returns</a>
-            <a href="#">Privacy</a>
-            <a href="#">Terms</a>
-          </div>
+
+      <div className="border-t border-white/10">
+        <div className="mx-auto flex max-w-[1440px] flex-col gap-3 px-6 py-6 text-xs text-white/75 md:flex-row md:items-center md:justify-between lg:px-12">
+          <p>Copyright © 2026 All Rights Reserved</p>
+          <p>COMPANY NO. <span className="text-brand-accent">11845610</span> | VAT NO. 449 4191 69</p>
         </div>
       </div>
     </footer>

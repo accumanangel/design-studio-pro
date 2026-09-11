@@ -39,43 +39,49 @@
   --color-olive: var(--olive);
   --color-ink: var(--ink);
   --color-charcoal: var(--charcoal);
+  --color-brand-dark: var(--brand-dark);
+  --color-brand-accent: var(--brand-accent);
+  --color-footer-muted: var(--footer-muted);
 
-  --font-serif: "Cormorant Garamond", "Times New Roman", serif;
-  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
-  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+  --font-serif: "Libre Baskerville", Georgia, serif;
+  --font-sans: "Montserrat", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "Montserrat", ui-sans-serif, system-ui, sans-serif;
 }
 
 :root {
   --radius: 0.25rem;
 
   /* IXIA brand tokens */
-  --background: #f7f4ef;
-  --foreground: #24221f;
+  --background: #ffffff;
+  --foreground: #313131;
   --card: #ffffff;
-  --card-foreground: #24221f;
+  --card-foreground: #313131;
   --popover: #ffffff;
-  --popover-foreground: #24221f;
-  --primary: #555c4e;
-  --primary-foreground: #f7f4ef;
-  --secondary: #ede7de;
-  --secondary-foreground: #24221f;
-  --muted: #ede7de;
-  --muted-foreground: #6b6357;
-  --accent: #ede7de;
-  --accent-foreground: #24221f;
-  --destructive: #a03e2a;
-  --destructive-foreground: #f7f4ef;
-  --border: rgba(36, 34, 31, 0.12);
-  --input: rgba(36, 34, 31, 0.16);
-  --ring: #555c4e;
+  --popover-foreground: #313131;
+  --primary: #ef4655;
+  --primary-foreground: #ffffff;
+  --secondary: #f5f2ef;
+  --secondary-foreground: #313131;
+  --muted: #f5f2ef;
+  --muted-foreground: #6e6e6e;
+  --accent: #ef4655;
+  --accent-foreground: #ffffff;
+  --destructive: #b42318;
+  --destructive-foreground: #ffffff;
+  --border: rgba(49, 49, 49, 0.14);
+  --input: rgba(49, 49, 49, 0.2);
+  --ring: #ef4655;
 
-  --ivory: #ede7de;
-  --stone: #cfc4b7;
-  --taupe: #a69584;
-  --sage: #8b9484;
-  --olive: #555c4e;
-  --ink: #24221f;
-  --charcoal: #34312d;
+  --ivory: #f5f2ef;
+  --stone: #d8d2cd;
+  --taupe: #747474;
+  --sage: #ef4655;
+  --olive: #ef4655;
+  --ink: #313131;
+  --charcoal: #313131;
+  --brand-dark: #141414;
+  --brand-accent: #ef4655;
+  --footer-muted: #9c9c9c;
 }
 
 @layer base {
@@ -97,8 +103,21 @@
 
   h1, h2, h3, h4 {
     font-family: var(--font-serif);
-    font-weight: 500;
-    letter-spacing: -0.01em;
+    font-weight: 700;
+    letter-spacing: -0.015em;
+  }
+
+  :focus-visible {
+    outline-color: var(--brand-accent);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    scroll-behavior: auto !important;
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
   }
 }
 

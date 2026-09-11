@@ -20,7 +20,7 @@ export const Route = createFileRoute("/order-confirmation")({
       </p>
       <div className="mt-10 flex flex-wrap justify-center gap-3">
         <Link
-          to="/"
+          to="/shop"
           className="border border-ink px-8 py-4 text-[11px] uppercase tracking-[0.25em] hover:bg-ink hover:text-background transition-colors"
         >
           Return home

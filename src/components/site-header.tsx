@@ -1,15 +1,15 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, Search, User, ShoppingBag, X } from "lucide-react";
+import { Menu, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
+import ixiaLogo from "@/assets/ixia-logo-white.png";
 
-const primaryLinks = [
-  { to: "/", label: "Home" },
-  { to: "/about", label: "About" },
-  { to: "/interior-design", label: "Interior Design" },
+const shopLinks = [
   { to: "/shop", label: "Shop" },
-  { to: "/journal", label: "Journal" },
-  { to: "/contact", label: "Contact" },
+  { to: "/shop/bedside-tables", label: "Bedside Tables" },
+  { to: "/shop/bedside-tables/childrens", label: "Children’s" },
+  { to: "/shop/bedside-tables/guest-room", label: "Guest Room" },
+  { to: "/shop/bedside-tables/master-suite", label: "Master Suite" },
 ] as const;
 
 export function SiteHeader() {
@@ -17,89 +17,69 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-ink/8 bg-background/90 backdrop-blur-sm">
-      <nav className="relative mx-auto flex h-16 max-w-[1440px] items-center justify-between px-6 lg:px-12">
-        <div className="hidden lg:flex items-center gap-7 text-[11px] font-medium uppercase tracking-[0.18em] text-ink">
-          {primaryLinks.slice(0, 4).map((l) => (
-            <Link
-              key={l.to}
-              to={l.to}
-              className="hover:text-taupe transition-colors"
-              activeProps={{ className: "text-olive" }}
-            >
-              {l.label}
-            </Link>
-          ))}
-        </div>
-
-        <Link
-          to="/"
-          className="absolute left-1/2 -translate-x-1/2 font-serif text-2xl italic tracking-tight text-ink"
-          aria-label="IXIA London"
-        >
-          IXIA
+    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-brand-dark text-white">
+      <nav
+        className="mx-auto flex min-h-20 max-w-[1440px] items-center justify-between gap-8 px-6 lg:px-12"
+        aria-label="Shop navigation"
+      >
+        <Link to="/shop" className="shrink-0 py-3" aria-label="IXIA London shop">
+          <img src={ixiaLogo} alt="IXIA London Interior Design" className="h-12 w-auto" />
         </Link>
 
-        <div className="hidden lg:flex items-center gap-6 text-[11px] font-medium uppercase tracking-[0.18em] text-ink">
-          {primaryLinks.slice(4).map((l) => (
+        <div className="hidden items-center gap-7 lg:flex">
+          {shopLinks.map((link) => (
             <Link
-              key={l.to}
-              to={l.to}
-              className="hover:text-taupe transition-colors"
-              activeProps={{ className: "text-olive" }}
+              key={link.to}
+              to={link.to}
+              className="py-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/80 transition-colors hover:text-brand-accent"
+              activeProps={{ className: "text-brand-accent" }}
             >
-              {l.label}
+              {link.label}
             </Link>
           ))}
-          <button aria-label="Search" className="hover:text-taupe">
-            <Search className="size-4" strokeWidth={1.5} />
-          </button>
-          <button aria-label="Account" className="hover:text-taupe">
-            <User className="size-4" strokeWidth={1.5} />
-          </button>
-          <Link to="/cart" className="relative hover:text-taupe" aria-label="Basket">
-            <ShoppingBag className="size-4" strokeWidth={1.5} />
-            {count > 0 && (
-              <span className="absolute -right-3 -top-2 flex size-4 items-center justify-center rounded-full bg-olive text-[9px] text-background font-sans">
-                {count}
-              </span>
-            )}
-          </Link>
         </div>
 
-        {/* Mobile */}
-        <div className="flex lg:hidden items-center gap-4">
-          <Link to="/cart" className="relative" aria-label="Basket">
-            <ShoppingBag className="size-5" strokeWidth={1.5} />
+        <div className="flex items-center gap-5">
+          <Link
+            to="/cart"
+            className="relative grid size-11 place-items-center transition-colors hover:text-brand-accent"
+            aria-label={`Basket${count ? `, ${count} item${count === 1 ? "" : "s"}` : ""}`}
+          >
+            <ShoppingBag className="size-5" strokeWidth={1.6} />
             {count > 0 && (
-              <span className="absolute -right-2 -top-1 flex size-4 items-center justify-center rounded-full bg-olive text-[9px] text-background">
-                {count}
-              </span>
+              <span className="absolute right-0 top-0 flex size-5 items-center justify-center rounded-full bg-brand-accent text-[10px] font-semibold text-white">{count}</span>
             )}
           </Link>
-          <button aria-label="Menu" onClick={() => setOpen(true)}>
-            <Menu className="size-5" strokeWidth={1.5} />
+          <button
+            type="button"
+            aria-label="Open shop menu"
+            aria-expanded={open}
+            onClick={() => setOpen(true)}
+            className="grid size-11 place-items-center transition-colors hover:text-brand-accent lg:hidden"
+          >
+            <Menu className="size-6" strokeWidth={1.8} />
           </button>
         </div>
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-50 bg-background lg:hidden">
-          <div className="flex items-center justify-between px-6 h-16 border-b border-ink/8">
-            <span className="font-serif text-2xl italic">IXIA</span>
-            <button aria-label="Close menu" onClick={() => setOpen(false)}>
-              <X className="size-5" />
+        <div className="fixed inset-0 z-50 bg-brand-dark text-white lg:hidden">
+          <div className="flex min-h-20 items-center justify-between border-b border-white/10 px-6">
+            <img src={ixiaLogo} alt="IXIA London Interior Design" className="h-10 w-auto" />
+            <button type="button" aria-label="Close shop menu" onClick={() => setOpen(false)} className="grid size-11 place-items-center hover:text-brand-accent">
+              <X className="size-6" />
             </button>
           </div>
-          <div className="flex flex-col gap-6 px-8 py-12 text-lg font-serif">
-            {primaryLinks.map((l) => (
+          <div className="flex flex-col px-6 py-8">
+            {shopLinks.map((link) => (
               <Link
-                key={l.to}
-                to={l.to}
+                key={link.to}
+                to={link.to}
                 onClick={() => setOpen(false)}
-                className="border-b border-ink/8 pb-3"
+                className="border-b border-white/10 py-5 font-serif text-2xl text-white/90 transition-colors hover:text-brand-accent"
+                activeProps={{ className: "text-brand-accent" }}
               >
-                {l.label}
+                {link.label}
               </Link>
             ))}
           </div>

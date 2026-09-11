@@ -1,6 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
-import { collections, products, type CollectionSlug } from "@/lib/products";
+import { collections, formatPrice, products, type CollectionSlug } from "@/lib/products";
 import { ProductCardImage } from "@/components/product-card-image";
 
 type Filter = "all" | CollectionSlug;
@@ -35,12 +35,12 @@ function CategoryPage() {
   return (
     <>
       {/* Intro */}
-      <section className="mx-auto max-w-[1440px] px-6 lg:px-12 pt-16 lg:pt-24 pb-10">
-        <p className="font-mono text-[11px] uppercase tracking-[0.3em] text-taupe">
+      <section className="mx-auto max-w-[1440px] px-6 lg:px-12 pt-16 lg:pt-24 pb-12">
+        <p className="font-mono text-[11px] font-semibold uppercase tracking-[0.3em] text-brand-accent">
           Shop / Bedside tables
         </p>
         <h1 className="mt-6 font-serif text-5xl lg:text-6xl max-w-2xl leading-[1.02] text-ink">
-          Bedside tables, drawn for the room they'll live in.
+          Bedside tables, made for the room they’ll live in.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-charcoal/75">
           Three families — for children's rooms, guest suites and the master. Each configured by
@@ -49,7 +49,7 @@ function CategoryPage() {
       </section>
 
       {/* Tabs + sort */}
-      <div className="border-y border-ink/8 bg-ivory/40">
+      <div className="border-y border-ink/10 bg-[#fafafa]">
         <div className="mx-auto max-w-[1440px] px-6 lg:px-12 py-4 flex flex-wrap items-center justify-between gap-4">
           <div className="flex flex-wrap gap-1 text-[11px] uppercase tracking-[0.2em]">
             {(["all", "childrens", "guest-room", "master-suite"] as Filter[]).map((f) => {
@@ -61,8 +61,8 @@ function CategoryPage() {
                   onClick={() => setFilter(f)}
                   className={`px-4 py-2 border transition-colors ${
                     active
-                      ? "bg-ink text-background border-ink"
-                      : "border-transparent hover:border-ink/20 text-charcoal/70"
+                      ? "bg-brand-accent text-white border-brand-accent"
+                      : "border-transparent hover:border-brand-accent/40 text-charcoal/70"
                   }`}
                 >
                   {label}
@@ -87,20 +87,11 @@ function CategoryPage() {
 
       {/* Grid */}
       <section className="mx-auto max-w-[1440px] px-6 lg:px-12 py-16">
-        <div className="grid gap-12 lg:grid-cols-[240px_1fr]">
-          {/* Filters (desktop) */}
-          <aside className="hidden lg:block space-y-10 text-[11px] uppercase tracking-[0.18em] text-charcoal/70">
-            <FilterGroup title="Size" items={["Small", "Large"]} />
-            <FilterGroup title="Finish" items={["Wooden", "Painted"]} />
-            <FilterGroup title="Solid Wood" items={["Cotton White", "Ash Grey"]} />
-            <FilterGroup title="Top material" items={["Wood", "Stone"]} />
-          </aside>
-
-          <div>
+        <div>
             <p className="text-[11px] uppercase tracking-[0.2em] text-taupe mb-6">
               {list.length} piece{list.length === 1 ? "" : "s"}
             </p>
-            <div className="grid gap-10 sm:grid-cols-2 xl:grid-cols-3">
+            <div className="grid gap-x-8 gap-y-14 sm:grid-cols-2 lg:grid-cols-3">
               {list.map((p) => (
                 <Link
                   key={p.slug}
@@ -114,8 +105,8 @@ function CategoryPage() {
                   </p>
                   <div className="mt-1 flex items-baseline justify-between gap-4">
                     <h3 className="font-serif text-xl">{p.name}</h3>
-                    <span className="text-[10px] uppercase tracking-[0.2em] text-taupe whitespace-nowrap">
-                      Made to order
+                    <span className="text-sm font-semibold text-charcoal whitespace-nowrap">
+                      From {formatPrice(p.basePrice)}
                     </span>
                   </div>
                   <p className="mt-2 text-xs text-charcoal/60">{p.strapline}</p>
@@ -135,27 +126,8 @@ function CategoryPage() {
                 </Link>
               ))}
             </div>
-          </div>
         </div>
       </section>
     </>
-  );
-}
-
-function FilterGroup({ title, items }: { title: string; items: string[] }) {
-  return (
-    <div>
-      <p className="text-taupe mb-4">{title}</p>
-      <ul className="space-y-2.5 normal-case tracking-normal text-sm text-charcoal/85">
-        {items.map((it) => (
-          <li key={it}>
-            <label className="flex items-center gap-2 cursor-pointer">
-              <input type="checkbox" className="accent-olive" />
-              {it}
-            </label>
-          </li>
-        ))}
-      </ul>
-    </div>
   );
 }

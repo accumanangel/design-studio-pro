@@ -375,10 +375,10 @@ function ProductPage() {
               signed and numbered.
             </p>
             <Link
-              to="/interior-design"
+              to="/shop/bedside-tables"
               className="mt-8 inline-block border-b border-ink pb-1 text-[11px] uppercase tracking-[0.2em]"
             >
-              Our process →
+              Explore the collection →
             </Link>
           </div>
           <img src={craftHands} alt="Hands finishing a walnut edge" loading="lazy" className="w-full aspect-[4/3] object-cover" />
