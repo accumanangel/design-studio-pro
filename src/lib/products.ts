@@ -107,7 +107,7 @@ const topOptions: Swatch[] = [
 
 // --- Children's bedside ---
 const childrensProduct: Product = {
-  slug: "the-marlow",
+  slug: "frances",
   collection: "childrens",
   collectionLabel: "Children's Suite",
   name: "Frances",

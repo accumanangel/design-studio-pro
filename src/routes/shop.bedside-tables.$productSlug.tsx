@@ -1,4 +1,4 @@
-import { createFileRoute, Link, notFound, useNavigate } from "@tanstack/react-router";
+import { createFileRoute, Link, notFound, redirect, useNavigate } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { Check, Plus, Minus } from "lucide-react";
 import { getProduct, formatPrice, type ConfigStep, type Swatch } from "@/lib/products";
@@ -22,6 +22,13 @@ export const QUOTE_DRAFT_KEY = "ixia-quote-draft-v2";
 
 export const Route = createFileRoute("/shop/bedside-tables/$productSlug")({
   loader: ({ params }) => {
+    if (params.productSlug === "the-marlow") {
+      throw redirect({
+        to: "/shop/bedside-tables/$productSlug",
+        params: { productSlug: "frances" },
+        replace: true,
+      });
+    }
     const product = getProduct(params.productSlug);
     if (!product) throw notFound();
     return { product };
