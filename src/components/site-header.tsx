@@ -1,15 +1,17 @@
 import { Link } from "@tanstack/react-router";
-import { Menu, ShoppingBag, X } from "lucide-react";
+import { Facebook, Instagram, Menu, ShoppingBag, X } from "lucide-react";
 import { useState } from "react";
 import { useCart } from "@/lib/cart-context";
 import ixiaLogo from "@/assets/ixia-logo-white.png";
+import galleryImage from "@/assets/room-master.jpg";
 
-const shopLinks = [
-  { to: "/shop", label: "Shop" },
-  { to: "/shop/bedside-tables", label: "Bedside Tables" },
-  { to: "/shop/bedside-tables/childrens", label: "Children’s" },
-  { to: "/shop/bedside-tables/guest-room", label: "Guest Room" },
-  { to: "/shop/bedside-tables/master-suite", label: "Master Suite" },
+const liveMenuItems = [
+  { label: "Home", href: "https://ixialondon.com/" },
+  { label: "About", href: "https://ixialondon.com/about/" },
+  { label: "Portfolio", href: "https://ixialondon.com/portfolio/", badge: "Latest" },
+  { label: "Services", href: "https://ixialondon.com/services/", active: true },
+  { label: "Blog", href: "https://ixialondon.com/blog/" },
+  { label: "Contact", href: "https://ixialondon.com/contact/" },
 ] as const;
 
 export function SiteHeader() {
@@ -17,29 +19,16 @@ export function SiteHeader() {
   const [open, setOpen] = useState(false);
 
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-white/10 bg-brand-dark text-white">
+    <header className="sticky top-0 z-50 w-full bg-brand-dark text-white">
       <nav
-        className="mx-auto flex min-h-20 max-w-[1440px] items-center justify-between gap-8 px-6 lg:px-12"
-        aria-label="Shop navigation"
+        className="mx-auto flex min-h-20 max-w-[1440px] items-center justify-between px-6 lg:px-12"
+        aria-label="IXIA London navigation"
       >
         <Link to="/shop" className="shrink-0 py-3" aria-label="IXIA London shop">
           <img src={ixiaLogo} alt="IXIA London Interior Design" className="h-12 w-auto" />
         </Link>
 
-        <div className="hidden items-center gap-7 lg:flex">
-          {shopLinks.map((link) => (
-            <Link
-              key={link.to}
-              to={link.to}
-              className="py-7 text-[11px] font-semibold uppercase tracking-[0.16em] text-white/80 transition-colors hover:text-brand-accent"
-              activeProps={{ className: "text-brand-accent" }}
-            >
-              {link.label}
-            </Link>
-          ))}
-        </div>
-
-        <div className="flex items-center gap-5">
+        <div className="flex items-center gap-3">
           <Link
             to="/cart"
             className="relative grid size-11 place-items-center transition-colors hover:text-brand-accent"
@@ -47,42 +36,82 @@ export function SiteHeader() {
           >
             <ShoppingBag className="size-5" strokeWidth={1.6} />
             {count > 0 && (
-              <span className="absolute right-0 top-0 flex size-5 items-center justify-center rounded-full bg-brand-accent text-[10px] font-semibold text-white">{count}</span>
+              <span className="absolute right-0 top-0 flex size-5 items-center justify-center rounded-full bg-brand-accent text-[10px] font-semibold text-white">
+                {count}
+              </span>
             )}
           </Link>
           <button
             type="button"
-            aria-label="Open shop menu"
+            aria-label="Open menu"
             aria-expanded={open}
             onClick={() => setOpen(true)}
-            className="grid size-11 place-items-center transition-colors hover:text-brand-accent lg:hidden"
+            className="grid size-11 place-items-center transition-colors hover:text-brand-accent"
           >
-            <Menu className="size-6" strokeWidth={1.8} />
+            <Menu className="size-7" strokeWidth={1.8} />
           </button>
         </div>
       </nav>
 
       {open && (
-        <div className="fixed inset-0 z-50 bg-brand-dark text-white lg:hidden">
-          <div className="flex min-h-20 items-center justify-between border-b border-white/10 px-6">
-            <img src={ixiaLogo} alt="IXIA London Interior Design" className="h-10 w-auto" />
-            <button type="button" aria-label="Close shop menu" onClick={() => setOpen(false)} className="grid size-11 place-items-center hover:text-brand-accent">
-              <X className="size-6" />
-            </button>
-          </div>
-          <div className="flex flex-col px-6 py-8">
-            {shopLinks.map((link) => (
-              <Link
-                key={link.to}
-                to={link.to}
+        <div className="fixed inset-0 z-50 bg-black/55" role="presentation" onClick={() => setOpen(false)}>
+          <aside
+            className="flex h-full w-[min(430px,88vw)] flex-col overflow-y-auto bg-brand-dark text-white shadow-2xl"
+            aria-label="Live IXIA website menu"
+            onClick={(event) => event.stopPropagation()}
+          >
+            <div className="flex min-h-20 items-center justify-between border-b border-white/10 px-7">
+              <img src={ixiaLogo} alt="IXIA London Interior Design" className="h-10 w-auto" />
+              <button
+                type="button"
+                aria-label="Close menu"
                 onClick={() => setOpen(false)}
-                className="border-b border-white/10 py-5 font-serif text-2xl text-white/90 transition-colors hover:text-brand-accent"
-                activeProps={{ className: "text-brand-accent" }}
+                className="grid size-11 place-items-center text-white/75 transition-colors hover:text-brand-accent"
               >
-                {link.label}
+                <X className="size-7" strokeWidth={1.8} />
+              </button>
+            </div>
+
+            <div className="flex items-center gap-4 px-7 py-5 text-sm font-semibold">
+              <span>Follow Us:</span>
+              <a href="https://www.facebook.com/ixialondon" aria-label="IXIA London on Facebook" className="grid size-8 place-items-center rounded-full bg-white text-brand-accent hover:bg-brand-accent hover:text-white">
+                <Facebook className="size-4" fill="currentColor" />
+              </a>
+              <a href="https://www.instagram.com/ixialondon/" aria-label="IXIA London on Instagram" className="grid size-8 place-items-center rounded-full bg-white text-brand-accent hover:bg-brand-accent hover:text-white">
+                <Instagram className="size-4" />
+              </a>
+            </div>
+
+            <nav className="px-7 py-7" aria-label="Live website pages">
+              <ul className="space-y-1">
+                {liveMenuItems.map((item) => (
+                  <li key={item.label}>
+                    <a
+                      href={item.href}
+                      onClick={() => setOpen(false)}
+                      className={`group flex items-center gap-3 py-3 text-[15px] font-semibold uppercase tracking-[0.08em] transition-colors hover:text-brand-accent ${item.active ? "text-brand-accent" : "text-white"}`}
+                    >
+                      {item.label}
+                      {item.badge && <span className="bg-brand-accent px-1.5 py-0.5 text-[8px] uppercase tracking-normal text-white">{item.badge}</span>}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+
+              <div className="mt-8 border-t border-white/30 pt-5">
+                <p className="flex items-center gap-4 text-[15px] font-semibold uppercase tracking-[0.08em]">Gallery <span className="h-px flex-1 bg-white/70" /></p>
+                <a href="https://ixialondon.com/portfolio/" onClick={() => setOpen(false)} className="mt-6 block overflow-hidden">
+                  <img src={galleryImage} alt="View the IXIA London gallery" className="aspect-[4/3] w-full object-cover opacity-90 transition-transform duration-700 hover:scale-105" />
+                </a>
+              </div>
+            </nav>
+
+            <div className="mt-auto border-t border-white/10 px-7 py-5">
+              <Link to="/shop" onClick={() => setOpen(false)} className="text-sm font-semibold uppercase tracking-[0.12em] text-brand-accent hover:text-white">
+                Shop the collection →
               </Link>
-            ))}
-          </div>
+            </div>
+          </aside>
         </div>
       )}
     </header>

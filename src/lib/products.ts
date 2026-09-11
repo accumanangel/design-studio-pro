@@ -109,7 +109,7 @@ const topOptions: Swatch[] = [
 const childrensProduct: Product = {
   slug: "frances",
   collection: "childrens",
-  collectionLabel: "Children's Suite",
+  collectionLabel: "Small Suite",
   name: "Frances",
   strapline: "A first bedside, gently proportioned.",
   description:
@@ -325,8 +325,8 @@ export const collections: {
 }[] = [
   {
     slug: "childrens",
-    label: "Children's Bedside Tables",
-    short: "Children's",
+    label: "Small Bedside Tables",
+    short: "Small",
     story:
       "Small in scale, gently detailed. Made for growing rooms and the years they hold.",
     image: roomChildren,

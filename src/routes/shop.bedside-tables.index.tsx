@@ -12,7 +12,7 @@ export const Route = createFileRoute("/shop/bedside-tables/")({
       {
         name: "description",
         content:
-          "Made-to-order bedside tables from IXIA London — for children's rooms, guest suites and master bedrooms. Configure size, finish and hardware.",
+          "Made-to-order bedside tables from IXIA London — for small rooms, guest suites and master bedrooms. Configure size, finish and hardware.",
       },
       { property: "og:title", content: "Bedside Tables — IXIA London" },
       { property: "og:description", content: "Made-to-order bedside tables from IXIA London." },
@@ -43,7 +43,7 @@ function CategoryPage() {
           Bedside tables, made for the room they’ll live in.
         </h1>
         <p className="mt-6 max-w-2xl text-base leading-relaxed text-charcoal/75">
-          Three families — for children's rooms, guest suites and the master. Each configured by
+          Three families — for small rooms, guest suites and the master. Each configured by
           size, finish, and hardware, then built by hand to order.
         </p>
       </section>
