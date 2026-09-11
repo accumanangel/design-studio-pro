@@ -4,7 +4,7 @@
 import productMasterWalnut from "@/assets/product-master-walnut.jpg";
 import productMasterMoss from "@/assets/product-master-moss.jpg";
 import productMasterTerracotta from "@/assets/product-master-terracotta.jpg";
-import productChildren from "@/assets/product-children.jpg";
+import productFrances from "@/assets/product-frances.png";
 import productGuest from "@/assets/product-guest.jpg";
 import roomChildren from "@/assets/room-children.jpg";
 import roomGuest from "@/assets/room-guest.jpg";
@@ -14,11 +14,8 @@ import swatchLightOak from "@/assets/swatch-light-oak.jpg";
 import swatchMidOak from "@/assets/swatch-mid-oak.jpg";
 import swatchWalnutWood from "@/assets/swatch-walnut.jpg";
 import swatchKnobWhite from "@/assets/swatch-knob-white.jpg";
-import swatchKnobGold from "@/assets/swatch-knob-gold.jpg";
 import swatchKnobPink from "@/assets/swatch-knob-pink.jpg";
-import swatchKnobBlack from "@/assets/swatch-knob-black.jpg";
 import swatchDetailFlower from "@/assets/swatch-detail-flower.jpg";
-import swatchDetailHeart from "@/assets/swatch-detail-heart.jpg";
 import swatchDetailNone from "@/assets/swatch-detail-none.jpg";
 import swatchHandleBronze from "@/assets/swatch-handle-bronze.jpg";
 import swatchHandleGold from "@/assets/swatch-handle-gold.jpg";
@@ -113,14 +110,14 @@ const childrensProduct: Product = {
   slug: "the-marlow",
   collection: "childrens",
   collectionLabel: "Children's Suite",
-  name: "The Marlow",
+  name: "Frances",
   strapline: "A first bedside, gently proportioned.",
   description:
-    "Hand-painted or lightly waxed in the workshop, The Marlow was drawn for a child's first grown-up room — round-cornered, quietly detailed, and finished with a knob small enough for small hands.",
+    "Hand-painted or lightly waxed in the workshop, Frances was drawn for a child's first grown-up room — round-cornered, quietly detailed, and finished with a knob small enough for small hands.",
   basePrice: gbp(485),
   leadTime: "6–8 weeks",
-  heroImage: productChildren,
-  galleryImages: [productChildren, roomChildren, detailWalnut, detailStone],
+  heroImage: productFrances,
+  galleryImages: [productFrances],
   sizes: [
     { id: "small", label: "Small", dims: "38 × 32 × 46 cm" },
     { id: "large", label: "Large", dims: "45 × 38 × 54 cm", priceDelta: gbp(60) },
@@ -138,10 +135,13 @@ const childrensProduct: Product = {
     },
     {
       key: "wood-tone",
-      label: "Wood tone",
+      label: "Solid Wood",
       kind: "wood",
       requires: { step: "finish", value: "wooden" },
-      options: woodTonesGeneric,
+      options: [
+        { id: "cotton-white", label: "Cotton White", colour: "#d9cbb7" },
+        { id: "ash-grey", label: "Ash Grey", colour: "#8c8173" },
+      ],
     },
     {
       key: "paint-colour",
@@ -149,19 +149,21 @@ const childrensProduct: Product = {
       kind: "paint",
       requires: { step: "finish", value: "painted" },
       options: [
-        { id: "dark-blue", label: "Dark Blue", colour: "#3a4a63", image: productChildren },
-        { id: "grey", label: "Grey", colour: "#8f8b83", image: productChildren },
-        { id: "pale-green", label: "Pale Green", colour: "#a8b5a1", image: productChildren },
-        { id: "off-white", label: "Off White", colour: "#ece5d7", image: productChildren },
+        { id: "navy-blue", label: "Navy Blue", colour: "#26364f", image: productFrances },
+        { id: "pale-green", label: "Pale Green", colour: "#a8b5a1", image: productFrances },
+        { id: "off-white", label: "Off White", colour: "#ece5d7", image: productFrances },
+        { id: "light-pink", label: "Light Pink", colour: "#e7c5c6", image: productFrances },
+        { id: "baby-blue", label: "Baby Blue", colour: "#b8cad8", image: productFrances },
+        { id: "light-grey", label: "Light Grey", colour: "#c6c4bf", image: productFrances },
       ],
     },
     {
       key: "detail",
       label: "Decorative detail",
       kind: "detail",
+      requires: { step: "finish", value: "wooden" },
       options: [
-        { id: "flower", label: "Flower detail", colour: "#e4d5c2", priceDelta: gbp(45), swatchImage: swatchDetailFlower },
-        { id: "heart", label: "Heart detail", colour: "#e4d5c2", priceDelta: gbp(45), swatchImage: swatchDetailHeart },
+        { id: "flower", label: "Flower detail", colour: "#e4d5c2", priceDelta: gbp(100), swatchImage: swatchDetailFlower },
         { id: "none", label: "No detail", colour: "#efe9de", swatchImage: swatchDetailNone },
       ],
     },
@@ -170,10 +172,21 @@ const childrensProduct: Product = {
       label: "Knob",
       kind: "metal",
       options: [
-        { id: "small-white", label: "Small white knob", colour: "#f2ede4", swatchImage: swatchKnobWhite },
-        { id: "small-gold", label: "Small gold knob", colour: "#c9a24a", priceDelta: gbp(25), swatchImage: swatchKnobGold },
-        { id: "pink", label: "Pink knob", colour: "#dda9a3", swatchImage: swatchKnobPink },
-        { id: "black", label: "Black knob", colour: "#1c1a17", swatchImage: swatchKnobBlack },
+        { id: "warm-white", label: "Warm White", colour: "#f2ede4", swatchImage: swatchKnobWhite },
+        { id: "pale-blue", label: "Pale Blue", colour: "#b8cad8" },
+        { id: "pink", label: "Pink", colour: "#dda9a3", swatchImage: swatchKnobPink },
+        { id: "pistachio-green", label: "Pistachio Green", colour: "#b7bea0" },
+      ],
+    },
+    {
+      key: "backplate",
+      label: "Backplates",
+      kind: "metal",
+      options: [
+        { id: "clover", label: "Clover", colour: "#d6d4cf", priceDelta: gbp(25) },
+        { id: "diamond", label: "Diamond", colour: "#c9c8c4", priceDelta: gbp(25) },
+        { id: "star", label: "Star", colour: "#dedbd4", priceDelta: gbp(25) },
+        { id: "none", label: "No Backplate", colour: "#efe9de" },
       ],
     },
   ],
@@ -209,7 +222,7 @@ const guestProduct: Product = {
     },
     {
       key: "wood-tone",
-      label: "Wood tone",
+      label: "Solid Wood",
       kind: "wood",
       requires: { step: "finish", value: "wooden" },
       options: woodTonesGeneric,
@@ -265,7 +278,7 @@ const masterProduct: Product = {
     },
     {
       key: "wood-tone",
-      label: "Wood tone",
+      label: "Solid Wood",
       kind: "wood",
       requires: { step: "finish", value: "wooden" },
       options: [

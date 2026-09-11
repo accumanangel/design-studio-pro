@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import heroBedroom from "@/assets/hero-master-bedroom.jpg";
 import { collections, products } from "@/lib/products";
+import { ProductCardImage } from "@/components/product-card-image";
 
 export const Route = createFileRoute("/shop/")({
   head: () => ({
@@ -62,11 +63,13 @@ function ShopLanding() {
                 key={p.slug}
                 to="/shop/bedside-tables/$productSlug"
                 params={{ productSlug: p.slug }}
-                className="group block"
+                className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive"
               >
-                <div className="relative aspect-[4/5] overflow-hidden bg-background">
-                  <img src={p.heroImage} alt={p.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.02]" />
-                </div>
+                <ProductCardImage
+                  src={p.heroImage}
+                  productName={p.name}
+                  backgroundClassName="bg-background"
+                />
                 <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">{p.collectionLabel}</p>
                 <div className="flex items-baseline justify-between">
                   <h3 className="font-serif text-xl">{p.name}</h3>

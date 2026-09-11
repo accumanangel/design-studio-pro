@@ -1,6 +1,7 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
 import { useMemo, useState } from "react";
 import { collections, products, type CollectionSlug } from "@/lib/products";
+import { ProductCardImage } from "@/components/product-card-image";
 
 type Filter = "all" | CollectionSlug;
 
@@ -91,7 +92,7 @@ function CategoryPage() {
           <aside className="hidden lg:block space-y-10 text-[11px] uppercase tracking-[0.18em] text-charcoal/70">
             <FilterGroup title="Size" items={["Small", "Large"]} />
             <FilterGroup title="Finish" items={["Wooden", "Painted"]} />
-            <FilterGroup title="Wood tone" items={["Light Oak", "Mid Oak", "Walnut"]} />
+            <FilterGroup title="Solid Wood" items={["Cotton White", "Ash Grey"]} />
             <FilterGroup title="Top material" items={["Wood", "Stone"]} />
           </aside>
 
@@ -105,16 +106,9 @@ function CategoryPage() {
                   key={p.slug}
                   to="/shop/bedside-tables/$productSlug"
                   params={{ productSlug: p.slug }}
-                  className="group block"
+                  className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive"
                 >
-                  <div className="relative aspect-[4/5] overflow-hidden bg-ivory">
-                    <img
-                      src={p.heroImage}
-                      alt={p.name}
-                      loading="lazy"
-                      className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.03]"
-                    />
-                  </div>
+                  <ProductCardImage src={p.heroImage} productName={p.name} />
                   <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">
                     {p.collectionLabel}
                   </p>

@@ -12,10 +12,13 @@ export interface QuoteDraft {
   productName: string;
   collectionLabel: string;
   sizeLabel: string;
-  selections: { stepLabel: string; optionLabel: string }[];
+  sizePriceDelta: number;
+  selections: { stepLabel: string; optionLabel: string; priceDelta: number }[];
+  basePrice: number;
+  totalPrice: number;
   leadTime: string;
 }
-export const QUOTE_DRAFT_KEY = "ixia-quote-draft-v1";
+export const QUOTE_DRAFT_KEY = "ixia-quote-draft-v2";
 
 export const Route = createFileRoute("/shop/bedside-tables/$productSlug")({
   loader: ({ params }) => {
@@ -97,14 +100,18 @@ function ProductPage() {
 
   const { previewImage, resolvedSelections } = useMemo(() => {
     let preview = product.heroImage;
-    const resolved: { stepLabel: string; optionLabel: string }[] = [];
+    const resolved: { stepLabel: string; optionLabel: string; priceDelta: number }[] = [];
     for (const step of visibleSteps) {
       const val = selections[step.key];
       if (!val) continue;
       const opt = step.options.find((o) => o.id === val);
       if (!opt) continue;
       if (opt.image) preview = opt.image;
-      resolved.push({ stepLabel: step.label, optionLabel: opt.label });
+      resolved.push({
+        stepLabel: step.label,
+        optionLabel: opt.label,
+        priceDelta: opt.priceDelta ?? 0,
+      });
     }
     return { previewImage: preview, resolvedSelections: resolved };
   }, [product, visibleSteps, selections]);
@@ -117,13 +124,34 @@ function ProductPage() {
 
   const isComplete = visibleSteps.every((s) => selections[s.key]);
 
+  const priceBreakdown = useMemo(() => {
+    const optionLines = resolvedSelections
+      .filter((selection) => selection.priceDelta > 0)
+      .map((selection) => ({
+        label: selection.optionLabel,
+        amount: selection.priceDelta,
+      }));
+    const lines = [
+      { label: "Base price", amount: product.basePrice },
+      ...(size.priceDelta ? [{ label: `${size.label} size`, amount: size.priceDelta }] : []),
+      ...optionLines,
+    ];
+    return {
+      lines,
+      total: lines.reduce((sum, line) => sum + line.amount, 0),
+    };
+  }, [product.basePrice, resolvedSelections, size.label, size.priceDelta]);
+
   const handleQuote = () => {
     const draft: QuoteDraft = {
       productSlug: product.slug,
       productName: product.name,
       collectionLabel: product.collectionLabel,
       sizeLabel: `${size.label} · ${size.dims}`,
+      sizePriceDelta: size.priceDelta ?? 0,
       selections: resolvedSelections,
+      basePrice: product.basePrice,
+      totalPrice: priceBreakdown.total,
       leadTime: product.leadTime,
     };
     try {
@@ -200,13 +228,16 @@ function ProductPage() {
                   <span className="font-mono text-[10px] text-taupe">01</span>
                   <span className="text-[11px] uppercase tracking-[0.2em] font-semibold">Size</span>
                 </div>
-                <div className="grid grid-cols-2 gap-3">
+                <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label="Size">
                   {product.sizes.map((s) => {
                     const active = s.id === sizeId;
                     return (
                       <button
                         key={s.id}
+                        type="button"
                         onClick={() => setSizeId(s.id)}
+                        role="radio"
+                        aria-checked={active}
                         className={`text-left p-4 border transition-all ${
                           active
                             ? "border-ink bg-ivory/40"
@@ -218,6 +249,9 @@ function ProductPage() {
                           {active && <Check className="size-3.5 text-olive" />}
                         </div>
                         <p className="mt-2 font-mono text-[10px] text-charcoal/60">{s.dims}</p>
+                        <p className="mt-1 text-[10px] text-taupe">
+                          {s.priceDelta ? `+ ${formatPrice(s.priceDelta)}` : "Included"}
+                        </p>
                       </button>
                     );
                   })}
@@ -256,6 +290,29 @@ function ProductPage() {
 
               {/* Action block */}
               <div className="mt-10 pt-8 border-t border-ink/10">
+                <div className="mb-8 bg-ivory/55 border border-ink/10 p-5" aria-live="polite">
+                  <div className="flex items-end justify-between gap-6">
+                    <div>
+                      <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">
+                        Your configuration
+                      </p>
+                      <p className="mt-1 text-xs text-charcoal/65">Package price</p>
+                    </div>
+                    <p className="font-serif text-3xl text-ink">{formatPrice(priceBreakdown.total)}</p>
+                  </div>
+                  <dl className="mt-5 space-y-2 border-t border-ink/8 pt-4 text-xs">
+                    {priceBreakdown.lines.map((line) => (
+                      <div key={line.label} className="flex items-center justify-between gap-6">
+                        <dt className="text-charcoal/65">{line.label}</dt>
+                        <dd className="text-ink">{formatPrice(line.amount)}</dd>
+                      </div>
+                    ))}
+                    <div className="flex items-center justify-between gap-6 border-t border-ink/8 pt-2 font-semibold">
+                      <dt>Total</dt>
+                      <dd>{formatPrice(priceBreakdown.total)}</dd>
+                    </div>
+                  </dl>
+                </div>
                 <div className="mb-6">
                   <p className="font-mono text-[10px] uppercase tracking-[0.25em] text-sage mb-1">
                     Lead time
@@ -264,14 +321,16 @@ function ProductPage() {
                 </div>
 
                 <button
+                  type="button"
                   onClick={handleQuote}
                   disabled={!isComplete}
                   className="w-full bg-olive text-background py-4 text-[11px] uppercase tracking-[0.25em] font-medium hover:bg-charcoal transition-all disabled:opacity-40 disabled:cursor-not-allowed"
                 >
-                  {isComplete ? "Request a bespoke quote" : "Complete configuration to request a quote"}
+                  {isComplete ? `Continue with ${formatPrice(priceBreakdown.total)} configuration` : "Complete configuration to continue"}
                 </button>
                 <p className="mt-3 text-[11px] text-taupe text-center">
-                  Each piece is made to order. We reply with pricing within two working days.
+                  Your configured product price is shown above. Delivery and bespoke variations
+                  are confirmed by the studio.
                 </p>
               </div>
 
@@ -373,6 +432,7 @@ function StepBlock({
           </span>
         </div>
         <button
+          type="button"
           onClick={onEdit}
           className="text-[10px] uppercase tracking-[0.2em] text-olive hover:text-charcoal"
         >
@@ -400,7 +460,7 @@ function StepBlock({
       {step.eyebrow && (
         <p className="ml-8 text-[11px] italic text-taupe mb-4">{step.eyebrow}</p>
       )}
-      <div className="grid grid-cols-2 gap-3">
+      <div className="grid grid-cols-2 gap-3" role="radiogroup" aria-label={step.label}>
         {step.options.map((opt) => (
           <SwatchButton
             key={opt.id}
@@ -426,9 +486,11 @@ function SwatchButton({
   const hasImage = !!opt.swatchImage;
   return (
     <button
+      type="button"
       onClick={onClick}
       disabled={opt.disabled}
-      aria-pressed={active}
+      role="radio"
+      aria-checked={active}
       aria-label={opt.label}
       className={`group flex items-center gap-3 p-3 text-left border transition-all ${
         active

@@ -1,5 +1,6 @@
 import { Link, notFound } from "@tanstack/react-router";
 import { collections, productsByCollection, type CollectionSlug, type Product } from "@/lib/products";
+import { ProductCardImage } from "@/components/product-card-image";
 
 export function CollectionPage({ slug }: { slug: CollectionSlug }) {
   const collection = collections.find((c) => c.slug === slug);
@@ -33,11 +34,9 @@ export function CollectionPage({ slug }: { slug: CollectionSlug }) {
               key={p.slug}
               to="/shop/bedside-tables/$productSlug"
               params={{ productSlug: p.slug }}
-              className="group block"
+              className="group block focus-visible:outline-2 focus-visible:outline-offset-4 focus-visible:outline-olive"
             >
-              <div className="relative aspect-[4/5] overflow-hidden bg-ivory">
-                <img src={p.heroImage} alt={p.name} loading="lazy" className="absolute inset-0 h-full w-full object-cover transition-transform duration-[900ms] group-hover:scale-[1.03]" />
-              </div>
+              <ProductCardImage src={p.heroImage} productName={p.name} />
               <p className="mt-4 font-mono text-[10px] uppercase tracking-[0.25em] text-taupe">{p.collectionLabel}</p>
               <div className="mt-1 flex items-baseline justify-between">
                 <h3 className="font-serif text-xl">{p.name}</h3>

@@ -2,6 +2,7 @@ import { createFileRoute, Link } from "@tanstack/react-router";
 import { useEffect, useState, type FormEvent } from "react";
 import jsPDF from "jspdf";
 import { QUOTE_DRAFT_KEY, type QuoteDraft } from "@/routes/shop.bedside-tables.$productSlug";
+import { formatPrice } from "@/lib/products";
 
 export const Route = createFileRoute("/request-a-quote")({
   head: () => ({
@@ -68,8 +69,8 @@ function QuotePage() {
         </h1>
         <p className="mt-6 text-charcoal/75 leading-relaxed max-w-lg">
           Every IXIA piece is made to order. Share your details and — once submitted — a PDF
-          summary of your configuration will download automatically. The studio replies with
-          pricing within two working days.
+          summary of your configuration will download automatically. The studio will confirm
+          delivery and any bespoke variations.
         </p>
 
         {draft && (
@@ -82,9 +83,14 @@ function QuotePage() {
             <dl className="mt-5 space-y-2 text-sm">
               <Row label="Size" value={draft.sizeLabel} />
               {draft.selections.map((s) => (
-                <Row key={s.stepLabel} label={s.stepLabel} value={s.optionLabel} />
+                <Row
+                  key={s.stepLabel}
+                  label={s.stepLabel}
+                  value={`${s.optionLabel}${s.priceDelta ? ` (+${formatPrice(s.priceDelta)})` : ""}`}
+                />
               ))}
               <Row label="Lead time" value={draft.leadTime} />
+              <Row label="Package price" value={formatPrice(draft.totalPrice)} strong />
             </dl>
           </div>
         )}
@@ -141,11 +147,13 @@ function QuotePage() {
   );
 }
 
-function Row({ label, value }: { label: string; value: string }) {
+function Row({ label, value, strong = false }: { label: string; value: string; strong?: boolean }) {
   return (
     <div className="flex justify-between gap-6 border-b border-ink/8 pb-2">
       <dt className="text-[11px] uppercase tracking-[0.2em] text-taupe">{label}</dt>
-      <dd className="text-charcoal text-right">{value}</dd>
+      <dd className={`text-right ${strong ? "font-serif text-lg text-ink" : "text-charcoal"}`}>
+        {value}
+      </dd>
     </div>
   );
 }
@@ -225,11 +233,17 @@ function generateQuotePdf(ref: string, values: QuoteFormValues, draft: QuoteDraf
     row("Collection", draft.collectionLabel);
     row("Size", draft.sizeLabel);
     row("Lead time", draft.leadTime);
+    row("Base price", formatPrice(draft.basePrice));
+    if (draft.sizePriceDelta) row("Size surcharge", `+${formatPrice(draft.sizePriceDelta)}`);
+    row("Package price", formatPrice(draft.totalPrice));
     y += 8;
 
     section("Configuration");
     for (const s of draft.selections) {
-      row(s.stepLabel, s.optionLabel);
+      row(
+        s.stepLabel,
+        `${s.optionLabel}${s.priceDelta ? ` (+${formatPrice(s.priceDelta)})` : " (Included)"}`,
+      );
     }
     y += 8;
   }
@@ -247,7 +261,7 @@ function generateQuotePdf(ref: string, values: QuoteFormValues, draft: QuoteDraf
   doc.setFontSize(8);
   doc.setTextColor(150);
   doc.text(
-    "IXIA London · Chiswick Studio · The studio will respond with a formal quotation within two working days.",
+    "IXIA London · Chiswick Studio · Package price excludes unconfirmed delivery or bespoke variations.",
     margin,
     y,
   );

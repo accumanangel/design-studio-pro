@@ -9,62 +9,27 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as ShopRouteImport } from './routes/shop'
-import { Route as RequestAQuoteRouteImport } from './routes/request-a-quote'
-import { Route as OrderConfirmationRouteImport } from './routes/order-confirmation'
-import { Route as JournalRouteImport } from './routes/journal'
-import { Route as InteriorDesignRouteImport } from './routes/interior-design'
-import { Route as ContactRouteImport } from './routes/contact'
-import { Route as CheckoutRouteImport } from './routes/checkout'
-import { Route as CartRouteImport } from './routes/cart'
-import { Route as AboutRouteImport } from './routes/about'
 import { Route as IndexRouteImport } from './routes/index'
+import { Route as AboutRouteImport } from './routes/about'
+import { Route as CartRouteImport } from './routes/cart'
+import { Route as CheckoutRouteImport } from './routes/checkout'
+import { Route as ContactRouteImport } from './routes/contact'
+import { Route as InteriorDesignRouteImport } from './routes/interior-design'
+import { Route as JournalRouteImport } from './routes/journal'
+import { Route as OrderConfirmationRouteImport } from './routes/order-confirmation'
+import { Route as RequestAQuoteRouteImport } from './routes/request-a-quote'
+import { Route as ShopRouteImport } from './routes/shop'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopBedsideTablesRouteImport } from './routes/shop.bedside-tables'
 import { Route as ShopBedsideTablesIndexRouteImport } from './routes/shop.bedside-tables.index'
-import { Route as ShopBedsideTablesMasterSuiteRouteImport } from './routes/shop.bedside-tables.master-suite'
-import { Route as ShopBedsideTablesGuestRoomRouteImport } from './routes/shop.bedside-tables.guest-room'
-import { Route as ShopBedsideTablesChildrensRouteImport } from './routes/shop.bedside-tables.childrens'
 import { Route as ShopBedsideTablesProductSlugRouteImport } from './routes/shop.bedside-tables.$productSlug'
+import { Route as ShopBedsideTablesChildrensRouteImport } from './routes/shop.bedside-tables.childrens'
+import { Route as ShopBedsideTablesGuestRoomRouteImport } from './routes/shop.bedside-tables.guest-room'
+import { Route as ShopBedsideTablesMasterSuiteRouteImport } from './routes/shop.bedside-tables.master-suite'
 
-const ShopRoute = ShopRouteImport.update({
-  id: '/shop',
-  path: '/shop',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const RequestAQuoteRoute = RequestAQuoteRouteImport.update({
-  id: '/request-a-quote',
-  path: '/request-a-quote',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const OrderConfirmationRoute = OrderConfirmationRouteImport.update({
-  id: '/order-confirmation',
-  path: '/order-confirmation',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const JournalRoute = JournalRouteImport.update({
-  id: '/journal',
-  path: '/journal',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const InteriorDesignRoute = InteriorDesignRouteImport.update({
-  id: '/interior-design',
-  path: '/interior-design',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const ContactRoute = ContactRouteImport.update({
-  id: '/contact',
-  path: '/contact',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CheckoutRoute = CheckoutRouteImport.update({
-  id: '/checkout',
-  path: '/checkout',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const CartRoute = CartRouteImport.update({
-  id: '/cart',
-  path: '/cart',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AboutRoute = AboutRouteImport.update({
@@ -72,9 +37,44 @@ const AboutRoute = AboutRouteImport.update({
   path: '/about',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const CartRoute = CartRouteImport.update({
+  id: '/cart',
+  path: '/cart',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CheckoutRoute = CheckoutRouteImport.update({
+  id: '/checkout',
+  path: '/checkout',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ContactRoute = ContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const InteriorDesignRoute = InteriorDesignRouteImport.update({
+  id: '/interior-design',
+  path: '/interior-design',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JournalRoute = JournalRouteImport.update({
+  id: '/journal',
+  path: '/journal',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OrderConfirmationRoute = OrderConfirmationRouteImport.update({
+  id: '/order-confirmation',
+  path: '/order-confirmation',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const RequestAQuoteRoute = RequestAQuoteRouteImport.update({
+  id: '/request-a-quote',
+  path: '/request-a-quote',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ShopRoute = ShopRouteImport.update({
+  id: '/shop',
+  path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ShopIndexRoute = ShopIndexRouteImport.update({
@@ -92,16 +92,10 @@ const ShopBedsideTablesIndexRoute = ShopBedsideTablesIndexRouteImport.update({
   path: '/',
   getParentRoute: () => ShopBedsideTablesRoute,
 } as any)
-const ShopBedsideTablesMasterSuiteRoute =
-  ShopBedsideTablesMasterSuiteRouteImport.update({
-    id: '/master-suite',
-    path: '/master-suite',
-    getParentRoute: () => ShopBedsideTablesRoute,
-  } as any)
-const ShopBedsideTablesGuestRoomRoute =
-  ShopBedsideTablesGuestRoomRouteImport.update({
-    id: '/guest-room',
-    path: '/guest-room',
+const ShopBedsideTablesProductSlugRoute =
+  ShopBedsideTablesProductSlugRouteImport.update({
+    id: '/$productSlug',
+    path: '/$productSlug',
     getParentRoute: () => ShopBedsideTablesRoute,
   } as any)
 const ShopBedsideTablesChildrensRoute =
@@ -110,10 +104,16 @@ const ShopBedsideTablesChildrensRoute =
     path: '/childrens',
     getParentRoute: () => ShopBedsideTablesRoute,
   } as any)
-const ShopBedsideTablesProductSlugRoute =
-  ShopBedsideTablesProductSlugRouteImport.update({
-    id: '/$productSlug',
-    path: '/$productSlug',
+const ShopBedsideTablesGuestRoomRoute =
+  ShopBedsideTablesGuestRoomRouteImport.update({
+    id: '/guest-room',
+    path: '/guest-room',
+    getParentRoute: () => ShopBedsideTablesRoute,
+  } as any)
+const ShopBedsideTablesMasterSuiteRoute =
+  ShopBedsideTablesMasterSuiteRouteImport.update({
+    id: '/master-suite',
+    path: '/master-suite',
     getParentRoute: () => ShopBedsideTablesRoute,
   } as any)
 
@@ -246,60 +246,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/shop': {
-      id: '/shop'
-      path: '/shop'
-      fullPath: '/shop'
-      preLoaderRoute: typeof ShopRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/request-a-quote': {
-      id: '/request-a-quote'
-      path: '/request-a-quote'
-      fullPath: '/request-a-quote'
-      preLoaderRoute: typeof RequestAQuoteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/order-confirmation': {
-      id: '/order-confirmation'
-      path: '/order-confirmation'
-      fullPath: '/order-confirmation'
-      preLoaderRoute: typeof OrderConfirmationRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/journal': {
-      id: '/journal'
-      path: '/journal'
-      fullPath: '/journal'
-      preLoaderRoute: typeof JournalRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/interior-design': {
-      id: '/interior-design'
-      path: '/interior-design'
-      fullPath: '/interior-design'
-      preLoaderRoute: typeof InteriorDesignRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/contact': {
-      id: '/contact'
-      path: '/contact'
-      fullPath: '/contact'
-      preLoaderRoute: typeof ContactRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/checkout': {
-      id: '/checkout'
-      path: '/checkout'
-      fullPath: '/checkout'
-      preLoaderRoute: typeof CheckoutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/cart': {
-      id: '/cart'
-      path: '/cart'
-      fullPath: '/cart'
-      preLoaderRoute: typeof CartRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/about': {
@@ -309,11 +260,60 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AboutRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/cart': {
+      id: '/cart'
+      path: '/cart'
+      fullPath: '/cart'
+      preLoaderRoute: typeof CartRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/checkout': {
+      id: '/checkout'
+      path: '/checkout'
+      fullPath: '/checkout'
+      preLoaderRoute: typeof CheckoutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/contact': {
+      id: '/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof ContactRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/interior-design': {
+      id: '/interior-design'
+      path: '/interior-design'
+      fullPath: '/interior-design'
+      preLoaderRoute: typeof InteriorDesignRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/journal': {
+      id: '/journal'
+      path: '/journal'
+      fullPath: '/journal'
+      preLoaderRoute: typeof JournalRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/order-confirmation': {
+      id: '/order-confirmation'
+      path: '/order-confirmation'
+      fullPath: '/order-confirmation'
+      preLoaderRoute: typeof OrderConfirmationRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/request-a-quote': {
+      id: '/request-a-quote'
+      path: '/request-a-quote'
+      fullPath: '/request-a-quote'
+      preLoaderRoute: typeof RequestAQuoteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/shop': {
+      id: '/shop'
+      path: '/shop'
+      fullPath: '/shop'
+      preLoaderRoute: typeof ShopRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shop/': {
@@ -337,18 +337,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopBedsideTablesIndexRouteImport
       parentRoute: typeof ShopBedsideTablesRoute
     }
-    '/shop/bedside-tables/master-suite': {
-      id: '/shop/bedside-tables/master-suite'
-      path: '/master-suite'
-      fullPath: '/shop/bedside-tables/master-suite'
-      preLoaderRoute: typeof ShopBedsideTablesMasterSuiteRouteImport
-      parentRoute: typeof ShopBedsideTablesRoute
-    }
-    '/shop/bedside-tables/guest-room': {
-      id: '/shop/bedside-tables/guest-room'
-      path: '/guest-room'
-      fullPath: '/shop/bedside-tables/guest-room'
-      preLoaderRoute: typeof ShopBedsideTablesGuestRoomRouteImport
+    '/shop/bedside-tables/$productSlug': {
+      id: '/shop/bedside-tables/$productSlug'
+      path: '/$productSlug'
+      fullPath: '/shop/bedside-tables/$productSlug'
+      preLoaderRoute: typeof ShopBedsideTablesProductSlugRouteImport
       parentRoute: typeof ShopBedsideTablesRoute
     }
     '/shop/bedside-tables/childrens': {
@@ -358,11 +351,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ShopBedsideTablesChildrensRouteImport
       parentRoute: typeof ShopBedsideTablesRoute
     }
-    '/shop/bedside-tables/$productSlug': {
-      id: '/shop/bedside-tables/$productSlug'
-      path: '/$productSlug'
-      fullPath: '/shop/bedside-tables/$productSlug'
-      preLoaderRoute: typeof ShopBedsideTablesProductSlugRouteImport
+    '/shop/bedside-tables/guest-room': {
+      id: '/shop/bedside-tables/guest-room'
+      path: '/guest-room'
+      fullPath: '/shop/bedside-tables/guest-room'
+      preLoaderRoute: typeof ShopBedsideTablesGuestRoomRouteImport
+      parentRoute: typeof ShopBedsideTablesRoute
+    }
+    '/shop/bedside-tables/master-suite': {
+      id: '/shop/bedside-tables/master-suite'
+      path: '/master-suite'
+      fullPath: '/shop/bedside-tables/master-suite'
+      preLoaderRoute: typeof ShopBedsideTablesMasterSuiteRouteImport
       parentRoute: typeof ShopBedsideTablesRoute
     }
   }
@@ -414,3 +414,13 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
+
+import type { getRouter } from './router.tsx'
+import type { startInstance } from './start.ts'
+declare module '@tanstack/react-start' {
+  interface Register {
+    ssr: true
+    router: Awaited<ReturnType<typeof getRouter>>
+    config: Awaited<ReturnType<typeof startInstance.getOptions>>
+  }
+}
