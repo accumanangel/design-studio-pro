@@ -14,9 +14,14 @@ export function SiteFooter() {
             Thoughtful, made-to-order furniture from an interior design studio creating inviting
             and functional spaces for modern family life.
           </p>
-          <Link to="/shop/bedside-tables" className="mt-6 inline-block text-sm font-semibold text-brand-accent hover:text-white">
-            Explore the collection
-          </Link>
+          <div className="mt-6 flex flex-wrap gap-x-6 gap-y-2">
+            <Link to="/shop/bedside-tables" className="text-sm font-semibold text-brand-accent hover:text-white">
+              Explore the collection
+            </Link>
+            <Link to="/testimonials" className="text-sm font-semibold text-brand-accent hover:text-white">
+              Client testimonials
+            </Link>
+          </div>
         </div>
 
         <div className="md:text-center">

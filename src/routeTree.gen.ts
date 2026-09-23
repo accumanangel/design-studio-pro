@@ -19,6 +19,7 @@ import { Route as JournalRouteImport } from './routes/journal'
 import { Route as OrderConfirmationRouteImport } from './routes/order-confirmation'
 import { Route as RequestAQuoteRouteImport } from './routes/request-a-quote'
 import { Route as ShopRouteImport } from './routes/shop'
+import { Route as TestimonialsRouteImport } from './routes/testimonials'
 import { Route as ShopIndexRouteImport } from './routes/shop.index'
 import { Route as ShopBedsideTablesRouteImport } from './routes/shop.bedside-tables'
 import { Route as ShopBedsideTablesIndexRouteImport } from './routes/shop.bedside-tables.index'
@@ -77,6 +78,11 @@ const ShopRoute = ShopRouteImport.update({
   path: '/shop',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TestimonialsRoute = TestimonialsRouteImport.update({
+  id: '/testimonials',
+  path: '/testimonials',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ShopIndexRoute = ShopIndexRouteImport.update({
   id: '/',
   path: '/',
@@ -128,6 +134,7 @@ export interface FileRoutesByFullPath {
   '/order-confirmation': typeof OrderConfirmationRoute
   '/request-a-quote': typeof RequestAQuoteRoute
   '/shop': typeof ShopRouteWithChildren
+  '/testimonials': typeof TestimonialsRoute
   '/shop/bedside-tables': typeof ShopBedsideTablesRouteWithChildren
   '/shop/': typeof ShopIndexRoute
   '/shop/bedside-tables/$productSlug': typeof ShopBedsideTablesProductSlugRoute
@@ -146,6 +153,7 @@ export interface FileRoutesByTo {
   '/journal': typeof JournalRoute
   '/order-confirmation': typeof OrderConfirmationRoute
   '/request-a-quote': typeof RequestAQuoteRoute
+  '/testimonials': typeof TestimonialsRoute
   '/shop': typeof ShopIndexRoute
   '/shop/bedside-tables/$productSlug': typeof ShopBedsideTablesProductSlugRoute
   '/shop/bedside-tables/childrens': typeof ShopBedsideTablesChildrensRoute
@@ -165,6 +173,7 @@ export interface FileRoutesById {
   '/order-confirmation': typeof OrderConfirmationRoute
   '/request-a-quote': typeof RequestAQuoteRoute
   '/shop': typeof ShopRouteWithChildren
+  '/testimonials': typeof TestimonialsRoute
   '/shop/bedside-tables': typeof ShopBedsideTablesRouteWithChildren
   '/shop/': typeof ShopIndexRoute
   '/shop/bedside-tables/$productSlug': typeof ShopBedsideTablesProductSlugRoute
@@ -186,6 +195,7 @@ export interface FileRouteTypes {
     | '/order-confirmation'
     | '/request-a-quote'
     | '/shop'
+    | '/testimonials'
     | '/shop/bedside-tables'
     | '/shop/'
     | '/shop/bedside-tables/$productSlug'
@@ -204,6 +214,7 @@ export interface FileRouteTypes {
     | '/journal'
     | '/order-confirmation'
     | '/request-a-quote'
+    | '/testimonials'
     | '/shop'
     | '/shop/bedside-tables/$productSlug'
     | '/shop/bedside-tables/childrens'
@@ -222,6 +233,7 @@ export interface FileRouteTypes {
     | '/order-confirmation'
     | '/request-a-quote'
     | '/shop'
+    | '/testimonials'
     | '/shop/bedside-tables'
     | '/shop/'
     | '/shop/bedside-tables/$productSlug'
@@ -242,6 +254,7 @@ export interface RootRouteChildren {
   OrderConfirmationRoute: typeof OrderConfirmationRoute
   RequestAQuoteRoute: typeof RequestAQuoteRoute
   ShopRoute: typeof ShopRouteWithChildren
+  TestimonialsRoute: typeof TestimonialsRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -314,6 +327,13 @@ declare module '@tanstack/react-router' {
       path: '/shop'
       fullPath: '/shop'
       preLoaderRoute: typeof ShopRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/testimonials': {
+      id: '/testimonials'
+      path: '/testimonials'
+      fullPath: '/testimonials'
+      preLoaderRoute: typeof TestimonialsRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/shop/': {
@@ -410,6 +430,7 @@ const rootRouteChildren: RootRouteChildren = {
   OrderConfirmationRoute: OrderConfirmationRoute,
   RequestAQuoteRoute: RequestAQuoteRoute,
   ShopRoute: ShopRouteWithChildren,
+  TestimonialsRoute: TestimonialsRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

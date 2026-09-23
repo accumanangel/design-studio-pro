@@ -10,6 +10,7 @@ const liveMenuItems = [
   { label: "About", href: "https://ixialondon.com/about/" },
   { label: "Portfolio", href: "https://ixialondon.com/portfolio/", badge: "Latest" },
   { label: "Services", href: "https://ixialondon.com/services/", active: true },
+  { label: "Testimonials", to: "/testimonials" },
   { label: "Blog", href: "https://ixialondon.com/blog/" },
   { label: "Contact", href: "https://ixialondon.com/contact/" },
 ] as const;
@@ -86,14 +87,24 @@ export function SiteHeader() {
               <ul className="space-y-1">
                 {liveMenuItems.map((item) => (
                   <li key={item.label}>
-                    <a
-                      href={item.href}
-                      onClick={() => setOpen(false)}
-                      className={`group flex items-center gap-3 py-3 text-[15px] font-semibold uppercase tracking-[0.08em] transition-colors hover:text-brand-accent ${item.active ? "text-brand-accent" : "text-white"}`}
-                    >
-                      {item.label}
-                      {item.badge && <span className="bg-brand-accent px-1.5 py-0.5 text-[8px] uppercase tracking-normal text-white">{item.badge}</span>}
-                    </a>
+                    {item.to ? (
+                      <Link
+                        to={item.to}
+                        onClick={() => setOpen(false)}
+                        className="group flex items-center gap-3 py-3 text-[15px] font-semibold uppercase tracking-[0.08em] text-white transition-colors hover:text-brand-accent"
+                      >
+                        {item.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={item.href}
+                        onClick={() => setOpen(false)}
+                        className={`group flex items-center gap-3 py-3 text-[15px] font-semibold uppercase tracking-[0.08em] transition-colors hover:text-brand-accent ${item.active ? "text-brand-accent" : "text-white"}`}
+                      >
+                        {item.label}
+                        {item.badge && <span className="bg-brand-accent px-1.5 py-0.5 text-[8px] uppercase tracking-normal text-white">{item.badge}</span>}
+                      </a>
+                    )}
                   </li>
                 ))}
               </ul>
