@@ -5,7 +5,7 @@ import { testimonials } from "@/lib/testimonials";
 
 const CONTACT_URL = "https://ixialondon.com/contact/";
 
-export const Route = createFileRoute("/testimonials")({
+export const Route = createFileRoute("/testimonials/")({
   head: () => ({
     meta: [
       { title: "Client Testimonials | IXIA London" },

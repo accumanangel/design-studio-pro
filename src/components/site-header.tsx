@@ -5,7 +5,17 @@ import { useCart } from "@/lib/cart-context";
 import ixiaLogo from "@/assets/ixia-logo-white.png";
 import galleryImage from "@/assets/room-master.jpg";
 
-const liveMenuItems = [
+interface MenuItem {
+  label: string;
+  /** Live website page. */
+  href?: string;
+  /** Page within this shop. */
+  to?: "/testimonials";
+  badge?: string;
+  active?: boolean;
+}
+
+const liveMenuItems: MenuItem[] = [
   { label: "Home", href: "https://ixialondon.com/" },
   { label: "About", href: "https://ixialondon.com/about/" },
   { label: "Portfolio", href: "https://ixialondon.com/portfolio/", badge: "Latest" },
@@ -13,7 +23,7 @@ const liveMenuItems = [
   { label: "Testimonials", to: "/testimonials" },
   { label: "Blog", href: "https://ixialondon.com/blog/" },
   { label: "Contact", href: "https://ixialondon.com/contact/" },
-] as const;
+];
 
 export function SiteHeader() {
   const { count } = useCart();
